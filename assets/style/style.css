@@ -45,11 +45,7 @@ body{
     transition: all 0.5s;
 }
 .sidebar{
-<<<<<<< HEAD
     width: 300px;
-=======
-    width: 350px;
->>>>>>> 939422cd4653d4016c92ec79aadcdbcd83ceb230
     height: 100%;
     padding: 20px 14px;
     position: fixed;
@@ -62,13 +58,6 @@ body{
 .sidebar.active{
     transform: translateX(100%);
 }
-<<<<<<< HEAD
-.appBar.active{
-    width: 98%;
-    margin: 12px auto;
-}
-=======
->>>>>>> 939422cd4653d4016c92ec79aadcdbcd83ceb230
 .sidebar-section{
     width: 100%;
     height: 100%;
@@ -79,11 +68,7 @@ body{
 }
 .brand-name{
     color: var(--bg);
-<<<<<<< HEAD
-    margin-bottom: 10px;
-=======
     margin-bottom: 20px;
->>>>>>> 939422cd4653d4016c92ec79aadcdbcd83ceb230
 }
 .avatar{
     display: flex;
@@ -125,7 +110,6 @@ body{
 }
 /* end sidebar */
 
-<<<<<<< HEAD
 /* appbar */
 .appBar{
     display: flex;
@@ -138,6 +122,10 @@ body{
     border: 1px solid var(--border);
     border-radius: 10px;
     transition: all 0.5s;
+}
+.appBar.active{
+    width: 98%;
+    margin: 12px auto;
 }
 .hamber{
     display: flex;
@@ -152,12 +140,7 @@ body{
 
 /* start content */
 .content{
-    margin-right: 295px;
-=======
-/* start content */
-.content{
     margin-right: 345px;
->>>>>>> 939422cd4653d4016c92ec79aadcdbcd83ceb230
     padding: 2rem 1.2rem 2rem 2rem;
     transition: all 0.5s;
 }
@@ -170,11 +153,6 @@ body{
     align-items: center;
 }
 
-<<<<<<< HEAD
-main{
-    padding-top: 30px;
-}
-=======
 .content header .hamber{
     display: flex;
     color: var(--text);
@@ -191,7 +169,6 @@ main{
     padding-top: 30px;
 }
 /* content */
->>>>>>> 939422cd4653d4016c92ec79aadcdbcd83ceb230
 .content-container{
     box-shadow: 0px 35px 50px var(--shadow);
     background-color: var(--simillar);
@@ -328,10 +305,7 @@ main{
     text-align: center;
     padding: 8px;
 }
-<<<<<<< HEAD
-=======
 
->>>>>>> 939422cd4653d4016c92ec79aadcdbcd83ceb230
 .fl-table td {
     font-size: 14px;
 }
@@ -349,7 +323,28 @@ main{
     background-color: rgba(106, 95, 232, 0.171);
 }
 
-<<<<<<< HEAD
+/* paginations */
+.demo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.paginate-item{
+    padding: 2px 7px;
+    background-color: var(--main);
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    margin: 3px;
+    box-shadow: var(--shadow);
+    transition: 0.4s;
+}
+.paginate-item:hover{
+    background-color: var(--hover);
+}
+
 /* login form */
 .login{
     width: 100%;
@@ -362,7 +357,7 @@ main{
     position: relative;
 }
 .avatar-login{
-    margin-top: 70px;
+    margin-top: 50px;
 }
 .avatar-login img{
     width: 90px;
@@ -424,40 +419,20 @@ main{
   /* custom */
   .error{
     color: red;
-    text-align: center;
-    margin: 20px 34px;
+    position: absolute;
+    font-weight: 200;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
   .success{
     color: #0d9c00;
-    text-align: center;
-    margin: 20px 34px;
-  }
-=======
-/* paginations */
-.demo {
-    position: fixed;
-    top: 50%;
+    position: absolute;
+    font-weight: 200;
+    top: 60px;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.paginate-item{
-    padding: 2px 7px;
-    background-color: var(--main);
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    margin: 3px;
-    box-shadow: var(--shadow);
-    transition: 0.4s;
-}
-.paginate-item:hover{
-    background-color: var(--hover);
-}
-
-
-
->>>>>>> 939422cd4653d4016c92ec79aadcdbcd83ceb230
+  }
 
 
 
@@ -469,7 +444,8 @@ main{
 
 
 
-@media screen and (max-width: 1200px) {
+
+  @media screen and (max-width: 1200px) {
     .report .report-item{
         width: calc(50% - 20px);
         margin-top: 20px;
@@ -482,13 +458,10 @@ main{
 .content{
     margin-right: 0;
 }
-<<<<<<< HEAD
 .appBar{
     width: 98%;
     margin: 12px auto;
 }
-=======
->>>>>>> 939422cd4653d4016c92ec79aadcdbcd83ceb230
 .sidebar.active{
     transform: translateX(0%);
 }

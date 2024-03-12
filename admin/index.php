@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="assets/style/style.css" />
+    <link rel="stylesheet" href="../assets/style/style.css" />
     <title>غالب</title>
   </head>
 
@@ -32,7 +32,7 @@
             </div>
           </div>
           <div class="img-avatar">
-            <img src="assets/img/profile.png" alt="" />
+            <img src="../assets/img/profile.png" alt="" />
           </div>
         </div>
         <div class="sidebar-item">
@@ -95,7 +95,7 @@
     </div>
     <!-- end content -->
 
-    <script src="assets/js/FontAwesomeAll.min.js"></script>
-    <script src="assets/js/script.js"></script>
+    <script src="../assets/js/FontAwesomeAll.min.js"></script>
+    <script src="../assets/js/script.js"></script>
   </body>
 </html>
