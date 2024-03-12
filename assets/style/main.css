@@ -1,0 +1,27 @@
+.flex-justify-align{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.center{
+    text-align: center;
+}
+.content-container{
+    width: 100%;
+    background-color: var(--simillar);
+    border-radius: 10px;
+}
+
+/* margin */
+.m20{
+    margin: 20px;
+}
+.mt20{
+    margin-top: 20px;
+}
+
+
+/* padding */
+.p20{
+    padding: 20px;
+}
