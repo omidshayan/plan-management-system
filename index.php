@@ -1,3 +1,9 @@
+<?php
+session_start();
+  if(isset($_SESSION['user-admin'])){
+    header('location: admin/index.php');
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +27,7 @@
                 <div class="avatar-login">
                     <img src="assets/img/profile.png" alt="">
                 </div><br>
-                <form action="check.php" method="POST">
+                <form action="login-check.php" method="POST">
                     <span> شماره موبایل </span><br>
                     <input type="text" name="phone" placeholder=" شماره موبایل خود را وارد کنید..." required><br>
                     <span>رمزعبور</span><br>

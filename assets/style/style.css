@@ -177,6 +177,16 @@ main{
     border-radius: 5px;
     overflow-x: auto;
 }
+.box-content-container{
+    box-shadow: 0px 35px 50px var(--shadow);
+    background-color: var(--simillar);
+    border: 1px solid var(--border);
+    padding: 30px 20px;
+    border-radius: 5px;
+    overflow-x: auto;
+    width: 70%;
+    margin: 0 auto;
+}
 
 .report{
     display: flex;
@@ -236,11 +246,16 @@ main{
     text-align: center;
     border-radius: 5px;
 }
-.insert div{
+.lable{
     text-align: right;
     margin-right: 5.5%;
     margin-bottom: 4px;
 }
+/* .insert div{
+    text-align: right;
+    margin-right: 5.5%;
+    margin-bottom: 4px;
+} */
 .insert input{
     background-color: var(--main);
     border: none;
@@ -284,6 +299,7 @@ main{
     color: var(--text) !important;
     margin-top: 40px;
     transition: all .3s ease-in;
+    text-align: center;
 }
 .btn:hover{
     background-color: var(--main) !important;    
@@ -323,27 +339,6 @@ main{
     background-color: rgba(106, 95, 232, 0.171);
 }
 
-/* paginations */
-.demo {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-.paginate-item{
-    padding: 2px 7px;
-    background-color: var(--main);
-    border-radius: 5px;
-    font-size: 14px;
-    cursor: pointer;
-    margin: 3px;
-    box-shadow: var(--shadow);
-    transition: 0.4s;
-}
-.paginate-item:hover{
-    background-color: var(--hover);
-}
 
 /* login form */
 .login{
@@ -415,8 +410,80 @@ main{
     background-color: var(--main) !important;
   }
 
+/* details info */
+.tabel-info{
+    margin-top: 20px;
+}
+.details{
+    display: flex;
+    justify-content: space-around;
+}
+.details-info{
+    width: 50%;
+}
+.details-img{
+    width: 30%;
+    height: 160px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.countRow{
+    position: absolute;
+}
+.details-img img{
+    border-radius: 50%;
+    width: 140px;
+    border: 1px solid var(--bg);
+}
+.user-details{
+    border-bottom: 1px solid var(--border);
+    padding: 6px;
+    font-size: 15px;
+}
+
+/* pagination */
+.pagination{
+    width: 200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+.pagination a{
+    width: 30px !important;
+}
+.paginate-item{
+    display: block;
+    width: 20px;
+    text-align: center;
+    background-color: var(--main);
+    padding: 3px 3px; 
+    border-radius: 3px;
+    margin: 3px;
+    color: var(--text);
+    font-size: 13px;
+}
+
+/* add paln */
+.textarea{
+    width: 90% !important;
+    margin: 0 auto;
+    height: 200px !important;
+    color: var(--main);
+}
+
+.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners{
+    height: 150px;
+}
+
+
 
   /* custom */
+.imgProfile{
+    width: 140px;
+    border: 1px solid var(--bg);
+    border-radius: 50%;
+}
   .error{
     color: red;
     position: absolute;
@@ -425,14 +492,29 @@ main{
     left: 50%;
     transform: translate(-50%, -50%);
   }
+  .errors{
+    color: red;
+    font-weight: 200;
+    text-align: center;
+  }
   .success{
     color: #0d9c00;
-    position: absolute;
     font-weight: 200;
-    top: 60px;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    text-align: center;
   }
+.p5{
+    padding: 5px;
+}
+.color{
+    color: var(--text);
+}
+.d-block{
+    display: block;
+}
+.center{
+    text-align: center !important;
+    margin: 0 auto !important;
+}
 
 
 
@@ -473,5 +555,24 @@ main{
 @media screen  and (max-width: 576px){
     .report .report-item{
         width: 100%;
+    }
+    .details{
+        display: block;
+    }
+}
+@media screen  and (max-width: 720px){
+    .details{
+        display: block;
+    }
+    .details-info{
+        width: 100%;
+    }
+    .details-img{
+        width: 100%;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .details-img img{
+        margin: 30px auto;
     }
 }
