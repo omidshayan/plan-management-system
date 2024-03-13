@@ -8,6 +8,10 @@ include_once '../connect.php';
 $sql = "SELECT * FROM users";
 $result = $connect->query($sql);
 $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
+
+$sql1 = "SELECT * FROM sections";
+$result1 = $connect->query($sql1);
+$sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- content -->
@@ -37,16 +41,7 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
                 <input type="text" placeholder="عنوان را وارد نمایید..." name="name" autocomplete="off">
 
                 <div class="lable">فعالیت</div>
-                <div class="textarea">
-                    <textarea name="content" id="editor"></textarea>
-                </div>
-                <script>
-                    ClassicEditor
-                        .create(document.querySelector('#editor'))
-                        .catch(error => {
-                            console.error(error);
-                        });
-                </script>
+                <input type="text" placeholder="عنوان را وارد نمایید..." name="name" autocomplete="off">
 
                 <div class="lable">مسئول اجرا</div>
                 <select name="name">
@@ -57,11 +52,11 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
                 </select>
 
 
-                <div class="lable">مسئول پیگیری</div>
+                <div class="lable">پیگیری توسط</div>
                 <select name="name">
                     <option selected disabled>مسئول پیگیری را انتخاب نمایید</option>
-                    <?php foreach ($userInfos as $userInfo) : ?>
-                        <option value="<?= $userInfo['name'] ?>"><?= $userInfo['name'] ?></option>
+                    <?php foreach ($sectionInfos as $sectionInfo) : ?>
+                        <option value="<?= $sectionInfo['name'] ?>"><?= $sectionInfo['name'] ?></option>
                     <?php endforeach; ?>
                 </select>
 

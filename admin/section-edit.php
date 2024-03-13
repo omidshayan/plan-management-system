@@ -11,7 +11,7 @@ $result->bindValue(1, $_GET['id']);
 $result->execute();
 $userInfo = $result->fetch(PDO::FETCH_OBJ);
 
-$sql = "SELECT * FROM sections";
+$sql = "SELECT * FROM users";
 $result = $connect->query($sql);
 $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
 ?>
@@ -39,7 +39,7 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
                 echo '<span class="errors">لطفا قسمت های ستاره دار را وارد نمایید</span>';
             } ?>
 
-            <form action="back/add-section-check.php" method="POST">
+            <form action="back/section-edit-check.php" method="POST">
                 <div class="lable">نام بخش</div>
                 <input type="text" placeholder="نام را وارد نمایید..." name="name" value="<?= $userInfo->name ?>" autocomplete="off">
 
@@ -48,7 +48,7 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
                 <select name="admin">
                     <option disabled>رئیس را انتخاب نمایید</option>
                     <?php foreach ($userInfos as $user) :
-                        $name = $user['admin'];
+                        $name = $user['name'];
                         $selectedUser = ($name == $userInfo->admin) ? 'selected' : '';
                     ?>
                         <option value="<?= $name ?>" <?= $selectedUser ?>>
@@ -62,7 +62,7 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
                 <select name="deputy">
                     <option selected disabled>معاون را انتخاب نمایید</option>
                     <?php foreach ($userInfos as $user) :
-                        $name = $user['deputy'];
+                        $name = $user['name'];
                         $selectedUser = ($name == $userInfo->deputy) ? 'selected' : '';
                     ?>
                         <option value="<?= $name ?>" <?= $selectedUser ?>>
@@ -75,7 +75,7 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
                 <select name="teaching">
                     <option selected disabled>مدیر تدریسی را انتخاب نمایید</option>
                     <?php foreach ($userInfos as $user) :
-                        $name = $user['teaching'];
+                        $name = $user['name'];
                         $selectedUser = ($name == $userInfo->teaching) ? 'selected' : '';
                     ?>
                         <option value="<?= $name ?>" <?= $selectedUser ?>>
@@ -84,10 +84,10 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
                     <?php endforeach; ?>
                 </select>
 
-
-
                 <div class="lable">ملاحضات</div>
                 <input type="text" placeholder="ملاحضات را وارد نمایید..." value="<?= $userInfo->description ?>" name="description" autocomplete="off">
+                <input type="hidden" name="id" value="<?= $userInfo->id ?>">
+
 
                 <input type="submit" value="ثبت" class="btn">
             </form>
