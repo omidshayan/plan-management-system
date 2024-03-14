@@ -12,12 +12,18 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
 $sql1 = "SELECT * FROM sections";
 $result1 = $connect->query($sql1);
 $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
+
+$sql2 = "SELECT * FROM `plans` WHERE `id` = ?";
+$result2 = $connect->prepare($sql2);
+$result2->bindValue(1, $_GET['id']);
+$result2->execute();
+$plan = $result2->fetch(PDO::FETCH_OBJ);
 ?>
 
 <!-- content -->
 <div class="content">
     <div class="title">
-        <div class="title-text">ثبت پلن جدید</div>
+        <div class="title-text">ویرایش پلن: <?= $plan->name ?></div>
     </div>
     <br>
 
@@ -38,37 +44,45 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
 
             <form action="back/add-plan-check.php" method="POST" enctype="multipart/form-data">
                 <div class="lable">عنوان پلن</div>
-                <input type="text" placeholder="عنوان را وارد نمایید..." name="name" autocomplete="off">
+                <input type="text" placeholder="عنوان را وارد نمایید..." name="name" value="<?= $plan->name ?>" autocomplete="off">
 
                 <div class="lable">هدف</div>
-                <input type="text" placeholder="هدف را وارد نمایید..." name="target" autocomplete="off">
+                <input type="text" placeholder="هدف را وارد نمایید..." name="target" value="<?= $plan->target ?>" autocomplete="off">
 
                 <div class="lable">فعالیت</div>
-                <input type="text" placeholder="فعالیت را وارد نمایید..." name="activiti" autocomplete="off">
+                <input type="text" placeholder="فعالیت را وارد نمایید..." name="activiti" value="<?= $plan->activity ?>" autocomplete="off">
 
                 <div class="lable">مسئول اجرا</div>
                 <select name="implementation">
-                    <option selected disabled>مسئول اجرا را انتخاب نمایید</option>
-                    <?php foreach ($userInfos as $userInfo) : ?>
-                        <option value="<?= $userInfo['name'] ?>"><?= $userInfo['name'] ?></option>
+                <option disabled>مسئول پیگیری را انتخاب نمایید</option>
+                    <?php foreach ($userInfos as $user) :
+                        $name = $user['name'];
+                        $selectedUser = ($name == $userInfo->admin) ? 'selected' : '';
+                    ?>
+                        <option value="<?= $name ?>" <?= $selectedUser ?>>
+                            <?= $name ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
-
 
                 <div class="lable">پیگیری توسط</div>
                 <select name="track">
-                    <option selected disabled>مسئول پیگیری را انتخاب نمایید</option>
-                    <?php foreach ($sectionInfos as $sectionInfo) : ?>
-                        <option value="<?= $sectionInfo['name'] ?>"><?= $sectionInfo['name'] ?></option>
+                    <option disabled>پیگیری  را انتخاب نمایید</option>
+                    <?php foreach ($sectionInfos as $section) :
+                        $name = $section['name'];
+                        $selectedUser = ($name == $userInfo->admin) ? 'selected' : '';
+                    ?>
+                        <option value="<?= $name ?>" <?= $selectedUser ?>>
+                            <?= $name ?>
+                        </option>
                     <?php endforeach; ?>
                 </select>
 
-
                 <div class="lable">بودجه (افغانی)</div>
-                <input type="text" placeholder="بودجه موبایل را وارد نمایید..." name="budget" autocomplete="off">
+                <input type="text" placeholder=" بودجه را وارد نمایید..." name="budget" value="<?= $plan->budget ?>" autocomplete="off">
 
                 <div class="lable">زمان اجرا</div>
-                <input type="text" placeholder="زمان اجرا را وارد نمایید..." name="execution_time" autocomplete="off">
+                <input type="text" placeholder="زمان اجرا را وارد نمایید..." name="execution_time" value="<?= $plan->execution_time ?>" autocomplete="off">
 
                 <input type="submit" value="ثبت" class="btn">
             </form>
