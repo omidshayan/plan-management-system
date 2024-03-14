@@ -5,11 +5,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="../assets/style/style.css" />
+  <script src="../assets/js/jquery.js"></script>
+
   <title>غالب</title>
-  <script src="../lib/ck/build/ckeditor.js"></script>
-  <script>
-    CKEDITOR.replace('body');
-  </script>
 </head>
 
 <body>

@@ -464,17 +464,68 @@ main{
     font-size: 13px;
 }
 
-/* add paln */
-.textarea{
-    width: 90% !important;
-    margin: 0 auto;
-    height: 200px !important;
-    color: var(--main);
+/* search-input */
+.search-input{
+    margin: 20px 0;
+    width: 120px;
+    position: relative;
+}
+.search-input input{
+    padding: 5px;
+    background-color: var(--main);
+    border: none;
+    width: 280px;
+    height: 35px;
+    border-radius: 5px;
+    color: var(--text);
+    font-size: 14px;
+    transition: 0.5s;
+    outline: none;
+    border: 1px solid var(--border);
+}
+.search-input input:focus {
+    outline: none !important;
+    border:1px solid var(--hover);
+    box-shadow: 0 0 8px var(--hover);
+    transition: 0.5s;
+}
+.result-search{
+    position: absolute;
+    background-color: var(--main);
+    width: 280px;
+    height: auto;
+    max-height: 200px;
+    overflow-x: auto;
+    display: none;
+}
+.result-search.active{
+    position: absolute;
+    background-color: var(--main);
+    width: 280px;
+    height: auto;
+    max-height: 200px;
+    overflow-x: auto;
+    display: block;
+}
+.search-item{
+    padding: 10px;
+    display: block;
+    transition: 03.s;
+}
+.selected {
+    background-color: var(--border);
+    color: var(--text); 
+}
+.close-icon{
+    position: absolute;
+    top: 7px;
+    left: -150px;
+    cursor: pointer;
+}
+.s-items:hover{
+    background-color: var(--border);
 }
 
-.ck-rounded-corners .ck.ck-editor__main>.ck-editor__editable, .ck.ck-editor__main>.ck-editor__editable.ck-rounded-corners{
-    height: 150px;
-}
 
 
 

@@ -29,7 +29,7 @@ $plan = $result2->fetch(PDO::FETCH_OBJ);
 
     <div class="box-content-container">
         <div class="insert">
-            <?php if (isset($_GET['inserted'])) {
+            <?php if (isset($_GET['editing'])) {
                 echo '<span class="success">عملیات با موفقیت انجام شد</span>';
             } ?>
             <?php if (isset($_GET['error'])) {
@@ -42,7 +42,7 @@ $plan = $result2->fetch(PDO::FETCH_OBJ);
                 echo '<span class="errors">لطفا قسمت های ستاره دار را وارد نمایید</span>';
             } ?>
 
-            <form action="back/add-plan-check.php" method="POST" enctype="multipart/form-data">
+            <form action="back/plan-edit-check.php" method="POST">
                 <div class="lable">عنوان پلن</div>
                 <input type="text" placeholder="عنوان را وارد نمایید..." name="name" value="<?= $plan->name ?>" autocomplete="off">
 
@@ -54,10 +54,10 @@ $plan = $result2->fetch(PDO::FETCH_OBJ);
 
                 <div class="lable">مسئول اجرا</div>
                 <select name="implementation">
-                <option disabled>مسئول پیگیری را انتخاب نمایید</option>
+                    <option disabled>مسئول پیگیری را انتخاب نمایید</option>
                     <?php foreach ($userInfos as $user) :
                         $name = $user['name'];
-                        $selectedUser = ($name == $userInfo->admin) ? 'selected' : '';
+                        $selectedUser = ($name == $plan->implementation) ? 'selected' : '';
                     ?>
                         <option value="<?= $name ?>" <?= $selectedUser ?>>
                             <?= $name ?>
@@ -67,10 +67,10 @@ $plan = $result2->fetch(PDO::FETCH_OBJ);
 
                 <div class="lable">پیگیری توسط</div>
                 <select name="track">
-                    <option disabled>پیگیری  را انتخاب نمایید</option>
+                    <option disabled>پیگیری را انتخاب نمایید</option>
                     <?php foreach ($sectionInfos as $section) :
                         $name = $section['name'];
-                        $selectedUser = ($name == $userInfo->admin) ? 'selected' : '';
+                        $selectedUser = ($name == $plan->track) ? 'selected' : '';
                     ?>
                         <option value="<?= $name ?>" <?= $selectedUser ?>>
                             <?= $name ?>
@@ -83,6 +83,7 @@ $plan = $result2->fetch(PDO::FETCH_OBJ);
 
                 <div class="lable">زمان اجرا</div>
                 <input type="text" placeholder="زمان اجرا را وارد نمایید..." name="execution_time" value="<?= $plan->execution_time ?>" autocomplete="off">
+                <input type="hidden" name="id" value="<?= $plan->id ?>">
 
                 <input type="submit" value="ثبت" class="btn">
             </form>
