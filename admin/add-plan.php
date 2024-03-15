@@ -23,20 +23,62 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="box-content-container">
         <div class="insert">
-            <?php if (isset($_GET['inserted'])) {
-                echo '<span class="success">عملیات با موفقیت انجام شد</span>';
-            } ?>
-            <?php if (isset($_GET['error'])) {
-                echo '<span class="errors">مشکل در ثبت کارمند جدید</span>';
-            } ?>
-            <?php if (isset($_GET['repead'])) {
-                echo '<span class="errors">شماره موبایل تکراری است</span>';
-            } ?>
-            <?php if (isset($_GET['empty'])) {
-                echo '<span class="errors">لطفا قسمت های ستاره دار را وارد نمایید</span>';
-            } ?>
+            <?php if (isset($_GET['inserted'])) : ?>
+                <script>
+                    $(document).ready(function() {
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'عملیات با موفقیت انجام شد!',
+                            customClass: {
+                                'swal2-popup': 'black-background'
+                            }
+                        });
+                    });
+                </script>
+            <?php endif; ?>
+            <?php if (isset($_GET['error'])) : ?>
+                <script>
+                    $(document).ready(function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطا در ثبت',
+                            text: 'مشکل در ثبت!',
+                            customClass: {
+                                'swal2-popup': 'black-background'
+                            }
+                        });
+                    });
+                </script>
+            <?php endif; ?>
+            <?php if (isset($_GET['empty'])) : ?>
+                <script>
+                    $(document).ready(function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطا در ثبت',
+                            text: 'لطفا قسمت های ضروری را وارد نمایید!',
+                            customClass: {
+                                'swal2-popup': 'black-background'
+                            }
+                        });
+                    });
+                </script>
+            <?php endif; ?>
+
 
             <form action="back/add-plan-check.php" method="POST" enctype="multipart/form-data">
+                <div class="input-group">
+                    <div class="input-item">
+                        <div class="lable">زمان اجرا</div>
+                        <input type="hidden" class="form-control d-none dateTime" name="execution_time" autofocus>
+                        <input type="text" class="expire" id="dateTime" placeholder="زمان اجرا را وارد نمایید..." autofocus>
+                    </div>
+                    <div class="input-item">
+                        <div class="lable">بودجه  <span class="info">(افغانی)</span> </div>
+                        <input type="text" placeholder="بودجه را وارد نمایید..." name="budget" autocomplete="off">
+                    </div>
+                </div>
+
                 <div class="lable">عنوان پلن</div>
                 <input type="text" placeholder="عنوان را وارد نمایید..." name="name" autocomplete="off">
 
@@ -62,20 +104,26 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
                         <option value="<?= $sectionInfo['name'] ?>"><?= $sectionInfo['name'] ?></option>
                     <?php endforeach; ?>
                 </select>
-
-
-                <div class="lable">بودجه (افغانی)</div>
-                <input type="text" placeholder="بودجه موبایل را وارد نمایید..." name="budget" autocomplete="off">
-
-                <div class="lable">زمان اجرا</div>
-                <input type="text" placeholder="زمان اجرا را وارد نمایید..." name="execution_time" autocomplete="off">
-
                 <input type="submit" value="ثبت" class="btn">
             </form>
 
         </div>
     </div>
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".expire").pDatepicker({
+                format: 'YYYY-MM-DD',
+                autoClose: true,
+                toolbox: {
+                    calendarSwitch: {
+                        enabled: true
+                    }
+                },
+                observer: true,
+                altField: '.dateTime'
+            });
+        });
+    </script>
 </div>
 <!-- end content -->
 

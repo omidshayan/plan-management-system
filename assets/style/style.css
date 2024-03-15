@@ -46,9 +46,10 @@ body{
 }
 .sidebar{
     width: 300px;
-    height: 100%;
+    height: auto;
     padding: 20px 14px;
     position: fixed;
+    overflow: auto;
     top: 0;
     right: 0;
     bottom: 0;
@@ -60,11 +61,13 @@ body{
 }
 .sidebar-section{
     width: 100%;
-    height: 100%;
+    height: auto;
     background-color: var(--simillar);
+    overflow: auto;
     padding: 20px;
     border-radius: 10px;
     border: 1px solid var(--border);
+    min-height: 95vh;
 }
 .brand-name{
     color: var(--bg);
@@ -103,11 +106,36 @@ body{
     display: block;
     transition: all .3s ease-in;
 }
+.has-submenu{
+    position: relative;
+}
+.submenu-icon{
+    position: absolute;
+    left: 5px;
+    top: 17px;
+}
 .testt.active{
     background: var(--border);
     padding-right: 10px;
     border-radius: 10px;
 }
+.submenu{
+    background-color: var(--main);
+    border-radius: 4px;
+    font-size: 14px;
+}
+.submenu a{
+    margin-right: 9px;
+}
+.submenu li{
+    border-radius: 4px;
+    padding: 0 !important;
+    transition: 0.4s;
+  }
+  .submenu li:hover{
+    background-color: var(--hover);
+    padding: 0 !important;
+  }
 /* end sidebar */
 
 /* appbar */
@@ -270,6 +298,13 @@ main{
     border: 1px solid var(--bg);
     margin-bottom: 25px;
 }
+.input-group{
+    display: flex;
+    justify-content: center;
+}
+.input-item{
+    width: 47%;
+}
 .insert select{
     background-color: var(--main);
     border: none;
@@ -289,7 +324,7 @@ main{
 .insert input:focus {
     outline: none !important;
     border:1px solid var(--hover);
-    box-shadow: 0 0 8px var(--shadow);
+    box-shadow: 0 0 8px var(--hover);
     transition: 0.5s;
   }
 .btn{
@@ -527,9 +562,11 @@ main{
 }
 
 
-
-
   /* custom */
+.d-flex{
+    display: flex;
+    align-items: center;
+}
 .imgProfile{
     width: 140px;
     border: 1px solid var(--bg);
@@ -566,11 +603,27 @@ main{
     text-align: center !important;
     margin: 0 auto !important;
 }
-
-
-
-
-
+.info{
+    font-size: 12px;
+}
+div:where(.swal2-container) div:where(.swal2-popup) {
+    background-color: var(--main) !important;
+    color: var(--text) !important;
+}
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+    ::-webkit-scrollbar-track {
+    background: var(--main);
+  }
+    ::-webkit-scrollbar-thumb {
+    background: var(--bg);
+  }
+    ::-webkit-scrollbar-thumb:hover {
+    background: var(--border);
+  }
+  
 
 
 
@@ -625,5 +678,11 @@ main{
     }
     .details-img img{
         margin: 30px auto;
+    }
+    .input-group{
+        display: block;
+    }
+    .input-item{
+        width: 100%;
     }
 }

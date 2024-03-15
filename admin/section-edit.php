@@ -26,18 +26,48 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="box-content-container">
         <div class="insert">
-            <?php if (isset($_GET['inserted'])) {
-                echo '<span class="success">عملیات با موفقیت انجام شد</span>';
-            } ?>
-            <?php if (isset($_GET['error'])) {
-                echo '<span class="errors">مشکل در ثبت </span>';
-            } ?>
-            <?php if (isset($_GET['repeat'])) {
-                echo '<span class="errors"> نام تکراری است</span>';
-            } ?>
-            <?php if (isset($_GET['empty'])) {
-                echo '<span class="errors">لطفا قسمت های ستاره دار را وارد نمایید</span>';
-            } ?>
+
+<?php if (isset($_GET['inserted'])) : ?>
+        <script>
+          $(document).ready(function() {
+            Swal.fire({
+              icon: 'success',
+              text: 'عملیات با موفقیت انجام شد!',
+              customClass: {
+                'swal2-popup': 'black-background'
+              }
+            });
+          });
+        </script>
+      <?php endif; ?>
+      <?php if (isset($_GET['error'])) : ?>
+        <script>
+          $(document).ready(function() {
+            Swal.fire({
+              icon: 'error',
+              title: 'خطا در ثبت',
+              text: 'مشکلی در ثبت پیش آمده!',
+              customClass: {
+                'swal2-popup': 'black-background'
+              }
+            });
+          });
+        </script>
+      <?php endif; ?>
+      <?php if (isset($_GET['empty'])) : ?>
+        <script>
+          $(document).ready(function() {
+            Swal.fire({
+              icon: 'error',
+              title: 'خطا در ثبت',
+              text: 'لطفا قسمت های ضروری را وارد نمایید!',
+              customClass: {
+                'swal2-popup': 'black-background'
+              }
+            });
+          });
+        </script>
+      <?php endif; ?>
 
             <form action="back/section-edit-check.php" method="POST">
                 <div class="lable">نام بخش</div>

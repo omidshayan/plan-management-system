@@ -29,18 +29,33 @@ $plan = $result2->fetch(PDO::FETCH_OBJ);
 
     <div class="box-content-container">
         <div class="insert">
-            <?php if (isset($_GET['editing'])) {
-                echo '<span class="success">عملیات با موفقیت انجام شد</span>';
-            } ?>
-            <?php if (isset($_GET['error'])) {
-                echo '<span class="errors">مشکل در ثبت کارمند جدید</span>';
-            } ?>
-            <?php if (isset($_GET['repead'])) {
-                echo '<span class="errors">شماره موبایل تکراری است</span>';
-            } ?>
-            <?php if (isset($_GET['empty'])) {
-                echo '<span class="errors">لطفا قسمت های ستاره دار را وارد نمایید</span>';
-            } ?>
+            <?php if (isset($_GET['editing'])) : ?>
+                <script>
+                    $(document).ready(function() {
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'عملیات با موفقیت انجام شد!',
+                            customClass: {
+                                'swal2-popup': 'black-background'
+                            }
+                        });
+                    });
+                </script>
+            <?php endif; ?>
+            <?php if (isset($_GET['empty'])) : ?>
+                <script>
+                    $(document).ready(function() {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'خطا در ثبت',
+                            text: 'لطفا قسمت های ضروری را وارد نمایید!',
+                            customClass: {
+                                'swal2-popup': 'black-background'
+                            }
+                        });
+                    });
+                </script>
+            <?php endif; ?>
 
             <form action="back/plan-edit-check.php" method="POST">
                 <div class="lable">عنوان پلن</div>

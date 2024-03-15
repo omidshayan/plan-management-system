@@ -22,7 +22,7 @@ $id = $_POST['id'];
 
 // inputs validations
 if (empty($name) || empty($target) || empty($activiti) || empty($implementation) || empty($execution_time) || empty($track)) {
-    header("location:../add-plan.php?empty=10&id=" . $id);
+    header("location:../plan-edit.php?empty=10&id=" . $id);
     exit;
 }
 

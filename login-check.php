@@ -15,6 +15,8 @@ $row = $result->rowCount();
 
 if ($row == 1) {
     $_SESSION['user-name'] = $userData->name;
+    $_SESSION['user-id'] = $userData->id;
+    $_SESSION['user-image'] = $userData->image;
     $_SESSION['user-admin'] = 'admin';
     header('location: admin/index.php');
     exit();

@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 session_start();
 if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
@@ -139,7 +142,12 @@ include_once 'sidebar.php';
                 $result = $connect->query($sql);
                 $plans = $result->fetchAll(PDO::FETCH_ASSOC);
                 $number = ($currentPage - 1) * $limit + 1;
-                foreach ($plans as $plan) { ?>
+
+                foreach ($plans as $plan) {
+                    $timestamp = strtotime($plan['execution_time']);
+                    // برای نمایش نام ماه‌های فلکی، از تابع jdate با استفاده از Y متغیر استفاده کنید
+                    $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');
+                    ?>
                     <tr>
                         <td><?= $number ?></td>
                         <td><?= $plan['name'] ?></td>
@@ -147,14 +155,18 @@ include_once 'sidebar.php';
                         <td><?= $plan['implementation'] ?></td>
                         <td><?= $plan['track'] ?></td>
                         <td><?= $plan['budget'] ?></td>
-                        <td><?= $plan['execution_time'] ?></td>
+                        <td><?= $shamsi_month ?></td>
                         <td><a href="plan-edit.php?id=<?= $plan['id'] ?>"><i class="fas fa-edit"></i></a></td>
                         <td><a href="plan-details.php?id=<?= $plan['id'] ?>" class="success">نمایش</a></td>
                     </tr>
-                <?php
+                    <?php
                     $number++;
                 }
-                ?>
+                
+?>                
+                
+                
+                
             </tbody>
         </table>
 

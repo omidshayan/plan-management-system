@@ -32,7 +32,7 @@ $userInfo = $result->fetch(PDO::FETCH_OBJ);
                     <li class="user-details"> تاریخ ثبت: <?=$userInfo->created_at?></li>
                 </ul>
             </div>
-            <div class="details-img"><img src="admin/<?=$userInfo->image?>" alt="dd"></div>
+            <div class="details-img"><img src="admin/<?=$userInfo->image?>" alt="profile"></div>
         </div>
        <a href="employees.php" class="color btn p5 d-block">برگشت</a>
     </div>

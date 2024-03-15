@@ -31,7 +31,7 @@ $checkPhoneStmt->execute();
 $phoneCount = $checkPhoneStmt->fetch(PDO::FETCH_ASSOC)['total'];
 
 if ($phoneCount > 0) {
-    header("location:../add-employee.php?repead=phone_duplicate");
+    header("location:../add-employee.php?repeat=phone_duplicate");
     exit;
 }
 

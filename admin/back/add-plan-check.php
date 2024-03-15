@@ -19,9 +19,10 @@ $datetime = date('Y/m/d H:i:s');
 
 // inputs validations
 if (empty($name) || empty($target) || empty($activiti) || empty($implementation) || empty($execution_time) || empty($track)) {
-    header("location:../add-plan.php?empty=10&id=" . $id);
+    header("location:../add-plan.php?empty=error");
     exit;
 }
+$execution_time= intval(substr($execution_time, 0, -3));
 
 
 $sql = "INSERT INTO `plans` (`id`, `name`, `target`, `activity`, `implementation`, `track`, `budget`, `execution_time`, `who_it_added`, `created_at`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";

@@ -14,10 +14,9 @@ $teaching = $_POST['teaching'];
 $description = $_POST['description'];
 $id = $_POST['id'];
 
-
 // inputs validations
 if (empty($name) || empty($admin) || empty($deputy) || empty($teaching)) {
-    header("location:../add-section.php?empty=10");
+    header("location:../section-edit.php?empty=10&id=" . $id);
     exit;
 }
 
