@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
-include_once 'sidebar.php';
+include_once 'header.php';
 
 include_once '../connect.php';
 $sql = "SELECT * FROM `sections` WHERE `id` = ?";
@@ -14,7 +14,6 @@ $userInfo = $result->fetch(PDO::FETCH_OBJ);
 ?>
 
 <!-- content -->
-<div class="content">
     <div class="title">
         <div class="title-text">نمایش جزئیات بخش: <?=$userInfo->name?></div>
     </div>
@@ -34,7 +33,6 @@ $userInfo = $result->fetch(PDO::FETCH_OBJ);
         </div>
        <a href="sections.php" class="color btn p5 d-block">برگشت</a>
     </div>
-</div>
 <!-- end content -->
 
 

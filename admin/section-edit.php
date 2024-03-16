@@ -1,9 +1,9 @@
 <?php
 session_start();
 if (!isset($_SESSION['user-admin'])) {
-    header('location: ../index.php');
+  header('location: ../index.php');
 }
-include_once 'sidebar.php';
+include_once 'header.php';
 include_once '../connect.php';
 $sql = "SELECT * FROM `sections` WHERE `id` = ?";
 $result = $connect->prepare($sql);
@@ -18,16 +18,15 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
 
 
 <!-- content -->
-<div class="content">
-    <div class="title">
-        <div class="title-text">ویرایش بخش: <?= $userInfo->name ?></div>
-    </div>
-    <br>
+  <div class="title">
+    <div class="title-text">ویرایش بخش: <?= $userInfo->name ?></div>
+  </div>
+  <br>
 
-    <div class="box-content-container">
-        <div class="insert">
+  <div class="box-content-container">
+    <div class="insert">
 
-<?php if (isset($_GET['inserted'])) : ?>
+      <?php if (isset($_GET['inserted'])) : ?>
         <script>
           $(document).ready(function() {
             Swal.fire({
@@ -69,63 +68,58 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
         </script>
       <?php endif; ?>
 
-            <form action="back/section-edit-check.php" method="POST">
-                <div class="lable">نام بخش</div>
-                <input type="text" placeholder="نام را وارد نمایید..." name="name" value="<?= $userInfo->name ?>" autocomplete="off">
+      <form action="back/section-edit-check.php" method="POST">
+        <div class="lable">نام بخش <span class="errors">*</span></div>
+        <input type="text" placeholder="نام را وارد نمایید..." name="name" value="<?= $userInfo->name ?>" autocomplete="off">
+        <div class="lable">رئیس بخش <span class="errors">*</span></div>
+        <select name="admin">
+          <option disabled>رئیس را انتخاب نمایید</option>
+          <?php foreach ($userInfos as $user) :
+            $name = $user['name'];
+            $selectedUser = ($name == $userInfo->admin) ? 'selected' : '';
+          ?>
+            <option value="<?= $name ?>" <?= $selectedUser ?>>
+              <?= $name ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+
+        <div class="lable">معاون بخش <span class="errors">*</span></div>
+        <select name="deputy">
+          <option selected disabled>معاون را انتخاب نمایید</option>
+          <?php foreach ($userInfos as $user) :
+            $name = $user['name'];
+            $selectedUser = ($name == $userInfo->deputy) ? 'selected' : '';
+          ?>
+            <option value="<?= $name ?>" <?= $selectedUser ?>>
+              <?= $name ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+
+        <div class="lable">مدیرت تدریسی بخش <span class="errors">*</span></div>
+        <select name="teaching">
+          <option selected disabled>مدیر تدریسی را انتخاب نمایید</option>
+          <?php foreach ($userInfos as $user) :
+            $name = $user['name'];
+            $selectedUser = ($name == $userInfo->teaching) ? 'selected' : '';
+          ?>
+            <option value="<?= $name ?>" <?= $selectedUser ?>>
+              <?= $name ?>
+            </option>
+          <?php endforeach; ?>
+        </select>
+
+        <div class="lable">ملاحضات</div>
+        <input type="text" placeholder="ملاحضات را وارد نمایید..." value="<?= $userInfo->description ?>" name="description" autocomplete="off">
+        <input type="hidden" name="id" value="<?= $userInfo->id ?>">
 
 
-                <div class="lable">رئیس بخش</div>
-                <select name="admin">
-                    <option disabled>رئیس را انتخاب نمایید</option>
-                    <?php foreach ($userInfos as $user) :
-                        $name = $user['name'];
-                        $selectedUser = ($name == $userInfo->admin) ? 'selected' : '';
-                    ?>
-                        <option value="<?= $name ?>" <?= $selectedUser ?>>
-                            <?= $name ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
+        <input type="submit" value="ثبت" class="btn btn-color">
+      </form>
 
-
-                <div class="lable">معاون بخش</div>
-                <select name="deputy">
-                    <option selected disabled>معاون را انتخاب نمایید</option>
-                    <?php foreach ($userInfos as $user) :
-                        $name = $user['name'];
-                        $selectedUser = ($name == $userInfo->deputy) ? 'selected' : '';
-                    ?>
-                        <option value="<?= $name ?>" <?= $selectedUser ?>>
-                            <?= $name ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-
-                <div class="lable">مدیرت تدریسی بخش</div>
-                <select name="teaching">
-                    <option selected disabled>مدیر تدریسی را انتخاب نمایید</option>
-                    <?php foreach ($userInfos as $user) :
-                        $name = $user['name'];
-                        $selectedUser = ($name == $userInfo->teaching) ? 'selected' : '';
-                    ?>
-                        <option value="<?= $name ?>" <?= $selectedUser ?>>
-                            <?= $name ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-
-                <div class="lable">ملاحضات</div>
-                <input type="text" placeholder="ملاحضات را وارد نمایید..." value="<?= $userInfo->description ?>" name="description" autocomplete="off">
-                <input type="hidden" name="id" value="<?= $userInfo->id ?>">
-
-
-                <input type="submit" value="ثبت" class="btn">
-            </form>
-
-        </div>
     </div>
-
-</div>
+  </div>
 <!-- end content -->
 
 

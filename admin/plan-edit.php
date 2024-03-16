@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
-include_once 'sidebar.php';
+include_once 'header.php';
 include_once '../connect.php';
 $sql = "SELECT * FROM users";
 $result = $connect->query($sql);
@@ -18,10 +18,10 @@ $result2 = $connect->prepare($sql2);
 $result2->bindValue(1, $_GET['id']);
 $result2->execute();
 $plan = $result2->fetch(PDO::FETCH_OBJ);
+$shamsi_month = jdate('F', $plan->execution_time, '', 'Asia/Kabul', 'fa');
 ?>
 
 <!-- content -->
-<div class="content">
     <div class="title">
         <div class="title-text">ویرایش پلن: <?= $plan->name ?></div>
     </div>
@@ -57,17 +57,58 @@ $plan = $result2->fetch(PDO::FETCH_OBJ);
                 </script>
             <?php endif; ?>
 
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const checkbox = document.getElementById('checkboxInput');
+                    const dateTimeInput = document.getElementById('dateTime');
+
+                    // تابعی که وضعیت تیک باکس را بررسی و وضعیت فیلدهای مربوطه را تغییر می‌دهد
+                    function toggleDateTimeInput() {
+                        if (checkbox.checked) {
+                            dateTimeInput.removeAttribute('disabled');
+                            dateTimeInput.classList.remove('grayed-out');
+                        } else {
+                            dateTimeInput.setAttribute('disabled', 'disabled');
+                            dateTimeInput.classList.add('grayed-out');
+                        }
+                    }
+
+                    // اولین بار هم تابع را فراخوانی می‌کنیم تا وضعیت اولیه تنظیم شود
+                    toggleDateTimeInput();
+
+                    // رویداد change بر روی تیک باکس برای تغییر وضعیت فیلدها
+                    checkbox.addEventListener('change', toggleDateTimeInput);
+                });
+            </script>
+
+
             <form action="back/plan-edit-check.php" method="POST">
-                <div class="lable">عنوان پلن</div>
+                <span class="time-title">زمان اجرا: ماه <?= $shamsi_month ?></span>
+                <div class="input-group">
+                    <div class="input-item">
+                        <div class="lable ral">
+                            <input type="checkbox" class="checkbox" id="checkboxInput" name="checkbox">
+                            <label for="checkboxInput"><span class="time-change">تغییر زمان اجرا</span></label>
+                        </div>
+                        <input type="hidden" class="form-control d-none dateTime" name="execution_time" autofocus>
+                        <input type="text" class="expire" id="dateTime" value="<?= $plan->execution_time ?>" placeholder="زمان اجرا را وارد نمایید..." disabled autofocus>
+                    </div>
+                    <div class="input-item">
+                        <div class="lable">بودجه <span class="info">(افغانی)</span> </div>
+                        <input type="text" placeholder="بودجه را وارد نمایید..." name="budget" value="<?= $plan->budget ?>" autocomplete="off">
+                    </div>
+                </div>
+
+                <div class="lable">عنوان پلن <span class="errors">*</span></div>
                 <input type="text" placeholder="عنوان را وارد نمایید..." name="name" value="<?= $plan->name ?>" autocomplete="off">
 
-                <div class="lable">هدف</div>
+                <div class="lable">هدف <span class="errors">*</span></div>
                 <input type="text" placeholder="هدف را وارد نمایید..." name="target" value="<?= $plan->target ?>" autocomplete="off">
 
-                <div class="lable">فعالیت</div>
+                <div class="lable">فعالیت <span class="errors">*</span></div>
                 <input type="text" placeholder="فعالیت را وارد نمایید..." name="activiti" value="<?= $plan->activity ?>" autocomplete="off">
 
-                <div class="lable">مسئول اجرا</div>
+                <div class="lable">مسئول اجرا <span class="errors">*</span></div>
                 <select name="implementation">
                     <option disabled>مسئول پیگیری را انتخاب نمایید</option>
                     <?php foreach ($userInfos as $user) :
@@ -80,7 +121,7 @@ $plan = $result2->fetch(PDO::FETCH_OBJ);
                     <?php endforeach; ?>
                 </select>
 
-                <div class="lable">پیگیری توسط</div>
+                <div class="lable">پیگیری توسط <span class="errors">*</span></div>
                 <select name="track">
                     <option disabled>پیگیری را انتخاب نمایید</option>
                     <?php foreach ($sectionInfos as $section) :
@@ -92,21 +133,26 @@ $plan = $result2->fetch(PDO::FETCH_OBJ);
                         </option>
                     <?php endforeach; ?>
                 </select>
-
-                <div class="lable">بودجه (افغانی)</div>
-                <input type="text" placeholder=" بودجه را وارد نمایید..." name="budget" value="<?= $plan->budget ?>" autocomplete="off">
-
-                <div class="lable">زمان اجرا</div>
-                <input type="text" placeholder="زمان اجرا را وارد نمایید..." name="execution_time" value="<?= $plan->execution_time ?>" autocomplete="off">
                 <input type="hidden" name="id" value="<?= $plan->id ?>">
-
-                <input type="submit" value="ثبت" class="btn">
+                <input type="submit" value="ثبت" class="btn btn-color bb">
             </form>
-
         </div>
     </div>
-
-</div>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".expire").pDatepicker({
+                format: 'YYYY-MM-DD',
+                autoClose: true,
+                toolbox: {
+                    calendarSwitch: {
+                        enabled: true
+                    }
+                },
+                observer: true,
+                altField: '.dateTime'
+            });
+        });
+    </script>
 <!-- end content -->
 
 

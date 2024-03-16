@@ -6,7 +6,7 @@ session_start();
 if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
-include_once 'sidebar.php';
+include_once 'header.php';
 ?>
 
 <!-- <script>
@@ -103,7 +103,6 @@ include_once 'sidebar.php';
 </script> -->
 
 <!-- content -->
-<div class="content">
     <div class="title">
         <div class="title-text">نمایش پلن ها</div>
     </div>
@@ -121,15 +120,15 @@ include_once 'sidebar.php';
         <table class="fl-table">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>هدف</th>
-                    <th>فعالیت</th>
-                    <th>مسئول اجرا</th>
-                    <th>مسئول پیگیری</th>
-                    <th>بودجه</th>
-                    <th>زمان اجرا</th>
-                    <th>ویرایش</th>
-                    <th>جزئیات</th>
+                    <th class="th">#</th>
+                    <th class="th">هدف</th>
+                    <th class="th">فعالیت</th>
+                    <th class="th">مسئول اجرا</th>
+                    <th class="th">مسئول پیگیری</th>
+                    <th class="th">بودجه</th>
+                    <th class="th">زمان اجرا</th>
+                    <th class="th">ویرایش</th>
+                    <th class="th">جزئیات</th>
                 </tr>
             </thead>
             <tbody>
@@ -145,7 +144,6 @@ include_once 'sidebar.php';
 
                 foreach ($plans as $plan) {
                     $timestamp = strtotime($plan['execution_time']);
-                    // برای نمایش نام ماه‌های فلکی، از تابع jdate با استفاده از Y متغیر استفاده کنید
                     $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');
                     ?>
                     <tr>
@@ -212,7 +210,6 @@ include_once 'sidebar.php';
             <?php endif; ?>
         </div>
     </div>
-</div>
 <!-- end content -->
 
 <?php

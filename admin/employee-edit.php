@@ -3,7 +3,7 @@ session_start();
 if (!isset($_SESSION['user-admin'])) {
   header('location: ../index.php');
 }
-include_once 'sidebar.php';
+include_once 'header.php';
 include_once '../connect.php';
 $sql = "SELECT * FROM `users` WHERE `id` = ?";
 $result = $connect->prepare($sql);
@@ -14,7 +14,6 @@ $userInfo = $result->fetch(PDO::FETCH_OBJ);
 
 
 <!-- content -->
-<div class="content">
   <div class="title">
     <div class="title-text">ویرایش کارمند: <?= $userInfo->name ?></div>
   </div>
@@ -79,34 +78,47 @@ $userInfo = $result->fetch(PDO::FETCH_OBJ);
       <?php endif; ?>
 
       <form action="back/edit-employee-check.php" method="POST" enctype="multipart/form-data">
-        <div class="lable">نام و تخلص</div>
+        <div class="lable">نام و تخلص <span class="errors">*</span></div>
         <input type="text" placeholder="نام و تخلص را وارد نمایید..." name="name" value="<?= $userInfo->name ?>" autocomplete="off">
-        <div class="lable">وظیفه</div>
+        <div class="lable">وظیفه <span class="errors">*</span></div>
         <select name="role">
           <option disabled>وظیفه را انتخاب نمایید</option>
           <option value="2" <?= ($userInfo->role == 2) ? 'selected' : '' ?>>رئیس دیپارتمنت</option>
           <option value="3" <?= ($userInfo->role == 3) ? 'selected' : '' ?>>استاد</option>
         </select>
-        <div class="lable">موبایل</div>
+        <div class="lable">موبایل <span class="errors">*</span></div>
         <input type="text" placeholder="شماره موبایل را وارد نمایید..." name="phone" value="<?= $userInfo->phone ?>" autocomplete="off">
         <div class="lable">ایمیل</div>
         <input type="text" placeholder="ایمیل را وارد نمایید..." name="email" value="<?= $userInfo->email ?>" autocomplete="off">
-        <div class="lable">رمزعبور</div>
+        <div class="lable">رمزعبور <span class="errors">*</span></div>
         <input type="password" id="passwordInput" value="<?= $userInfo->password ?>" placeholder="رمز عبور را وارد کنید..." name="password">
         <img src="admin/<?= $userInfo->image ?>" alt="user profile" class="imgProfile">
         <input type="hidden" name="id" value="<?= $userInfo->id ?>">
         <input type="file" name="image">
 
-        <input type="submit" value="ثبت" class="btn">
+        <input type="submit" value="ثبت" class="btn btn-color">
         <div class="center"><a href="employees.php" class="color">برگشت</a></div>
       </form>
     </div>
   </div>
 
-</div>
 <!-- end content -->
 
+<script>
+  // show password
+  var passwordInput = document.getElementById("passwordInput");
+  passwordInput.addEventListener("click", function() {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+    } else {
+      passwordInput.type = "password";
+    }
+  });
+  passwordInput.addEventListener("blur", function() {
+    passwordInput.type = "password";
+  });
 
+</script>
 <?php
 include_once 'footer.php';
 ?>

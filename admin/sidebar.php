@@ -1,20 +1,5 @@
-<!DOCTYPE html>
-<html>
+<?php include_once 'header.php' ?>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="../assets/style/style.css" />
-  <script src="../assets/js/jquery.js"></script>
-  <script src="../assets/js/sweetAlert.js"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
-  <link href="../lib/timePicker/persian-datepicker.min.css" rel="stylesheet" />
-
-
-  <title>غالب</title>
-</head>
-
-<body>
   <input type="text" id="menu-toggle" />
 
   <!-- start appbar -->
@@ -26,8 +11,10 @@
     </header>
     appbar
   </div>
+  <br>
   <!-- end sidebar -->
 
+  <!-- submenu sidebar -->
   <script>
     $(document).ready(function() {
       $('.has-submenu').click(function() {
@@ -59,7 +46,7 @@
       <div class="sidebar-item">
         <ul>
           <li>
-            <a href="index.php">
+            <a href="dashboard.php" class="siedbar-click" target="content-frame">
               <i class="fas fa-tachometer-alt"></i>
               <span>صفحه اصلی</span>
             </a>
@@ -73,11 +60,10 @@
               <span>پلن ها</span>
             </a>
             <ul class="submenu" style="display: none;">
-              <li><a href="add-plan.php">ثبت پلن جدید</a></li>
-              <li><a href="plans.php">نمایش پلن ها</a></li>
+              <li><a href="add-plan.php" class="siedbar-click" target="content-frame">ثبت پلن جدید</a></li>
+              <li><a href="plans.php" class="siedbar-click" target="content-frame">نمایش پلن ها</a></li>
             </ul>
           </li>
-
 
           <li class="has-submenu">
           <i class="fas fa-sort-down submenu-icon"></i>
@@ -86,8 +72,8 @@
               <span>مدیریت کارمندان</span>
             </a>
             <ul class="submenu" style="display: none;">
-              <li><a href="employees.php">کارمندان</a></li>
-              <li><a href="add-employee.php">ثبت کارمند</a></li>
+              <li><a href="employees.php" class="siedbar-click" target="content-frame">کارمندان</a></li>
+              <li><a href="add-employee.php" class="siedbar-click" target="content-frame">ثبت کارمند</a></li>
             </ul>
           </li>
 
@@ -98,13 +84,13 @@
               <span>بخش ها</span>
             </a>
             <ul class="submenu" style="display: none;">
-              <li><a href="add-section.php">ثبت بخش جدید</a></li>
-              <li><a href="sections.php">نمایش پلن ها</a></li>
+              <li><a href="add-section.php" class="siedbar-click" target="content-frame">ثبت بخش جدید</a></li>
+              <li><a href="sections.php" class="siedbar-click" target="content-frame">نمایش بخش ها</a></li>
             </ul>
           </li>
 
           <li>
-            <a href="profile.php">
+            <a href="profile.php" class="siedbar-click" target="content-frame">
             <i class="fas fa-user-circle"></i>
               <span>تنظیمات پروفایل</span>
             </a>

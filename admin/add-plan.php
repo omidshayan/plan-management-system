@@ -3,7 +3,8 @@ session_start();
 if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
-include_once 'sidebar.php';
+
+include_once 'header.php';
 include_once '../connect.php';
 $sql = "SELECT * FROM users";
 $result = $connect->query($sql);
@@ -15,7 +16,6 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!-- content -->
-<div class="content">
     <div class="title">
         <div class="title-text">ثبت پلن جدید</div>
     </div>
@@ -79,16 +79,17 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
                     </div>
                 </div>
 
-                <div class="lable">عنوان پلن</div>
+                <div class="lable">عنوان پلن  <span class="errors">*</span> </div>
+               
                 <input type="text" placeholder="عنوان را وارد نمایید..." name="name" autocomplete="off">
 
-                <div class="lable">هدف</div>
+                <div class="lable">هدف  <span class="errors">*</span></div>
                 <input type="text" placeholder="هدف را وارد نمایید..." name="target" autocomplete="off">
 
-                <div class="lable">فعالیت</div>
+                <div class="lable">فعالیت <span class="errors">*</span></div>
                 <input type="text" placeholder="فعالیت را وارد نمایید..." name="activiti" autocomplete="off">
 
-                <div class="lable">مسئول اجرا</div>
+                <div class="lable">مسئول اجرا <span class="errors">*</span></div>
                 <select name="implementation">
                     <option selected disabled>مسئول اجرا را انتخاب نمایید</option>
                     <?php foreach ($userInfos as $userInfo) : ?>
@@ -97,14 +98,14 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
                 </select>
 
 
-                <div class="lable">پیگیری توسط</div>
+                <div class="lable">پیگیری توسط <span class="errors">*</span></div>
                 <select name="track">
                     <option selected disabled>مسئول پیگیری را انتخاب نمایید</option>
                     <?php foreach ($sectionInfos as $sectionInfo) : ?>
                         <option value="<?= $sectionInfo['name'] ?>"><?= $sectionInfo['name'] ?></option>
                     <?php endforeach; ?>
                 </select>
-                <input type="submit" value="ثبت" class="btn">
+                <input type="submit" value="ثبت" class="btn btn-color">
             </form>
 
         </div>
@@ -124,7 +125,6 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
             });
         });
     </script>
-</div>
 <!-- end content -->
 
 

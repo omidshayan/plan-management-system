@@ -3,10 +3,9 @@ session_start();
 if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
-include_once 'sidebar.php';
+include_once 'header.php';
 ?>
 <!-- content -->
-<div class="content">
     <div class="title">
         <div class="title-text">نمایش بخش ها</div>
     </div>
@@ -15,13 +14,13 @@ include_once 'sidebar.php';
         <table class="fl-table">
             <thead>
                 <tr>
-                    <th>#</th>
-                    <th>نام بخش</th>
-                    <th>مدیر</th>
-                    <th>معاون</th>
-                    <th>مدیر تدریسی</th>
-                    <th>ویرایش</th>
-                    <th>جزئیات</th>
+                    <th class="th">#</th>
+                    <th class="th">نام بخش</th>
+                    <th class="th">مدیر</th>
+                    <th class="th">معاون</th>
+                    <th class="th">مدیر تدریسی</th>
+                    <th class="th">ویرایش</th>
+                    <th class="th">جزئیات</th>
                 </tr>
             </thead>
             <tbody>
@@ -93,7 +92,6 @@ include_once 'sidebar.php';
             <?php endif; ?>
         </div>
     </div>
-</div>
 <!-- end content -->
 
 <?php
