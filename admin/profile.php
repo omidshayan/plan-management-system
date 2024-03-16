@@ -93,7 +93,7 @@ $userInfo = $result->fetch(PDO::FETCH_OBJ);
             <input type="password" id="passwordInput" value="<?= $userInfo->password ?>" placeholder="رمز عبور را وارد کنید..." name="password">
 
             <img src="admin/<?= $userInfo->image ?>" alt="user profile" class="imgProfile">
-            <input type="submit" value="ثبت" class="btn">
+            <input type="submit" value="ثبت" class="btn btn-color">
         </form>
 
     </div>
