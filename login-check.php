@@ -14,12 +14,35 @@ $userData = $result->fetch(PDO::FETCH_OBJ);
 $row = $result->rowCount();
 
 if ($row == 1) {
-    $_SESSION['user-name'] = $userData->name;
-    $_SESSION['user-id'] = $userData->id;
-    $_SESSION['user-image'] = $userData->image;
-    $_SESSION['user-admin'] = 'admin';
-    header('location: admin/index.php');
-    exit();
+    if ($userData->role === 4) {
+        $_SESSION['user-name'] = $userData->name;
+        $_SESSION['user-image'] = $userData->image;
+        $_SESSION['user-admin'] = 'admin';
+        $_SESSION['user-id'] = $userData->id;
+        header('location: admin/index.php');
+        exit();
+    } elseif ($userData->role === 3) {
+        $_SESSION['user-name'] = $userData->name;
+        $_SESSION['user-image'] = $userData->image;
+        $_SESSION['department-admin'] = 'department-admin';
+        $_SESSION['user-id'] = $userData->id;
+        header('location: department-admin/index.php');
+        exit();
+    } elseif ($userData->role === 2) {
+        $_SESSION['user-name'] = $userData->name;
+        $_SESSION['user-image'] = $userData->image;
+        $_SESSION['user-admin'] = 'admin';
+        $_SESSION['user-id'] = $userData->id;
+        header('location: admin/index.php');
+        exit();
+    } else {
+        $_SESSION['user-name'] = $userData->name;
+        $_SESSION['user-image'] = $userData->image;
+        $_SESSION['user-admin'] = 'admin';
+        $_SESSION['user-id'] = $userData->id;
+        header('location: admin/index.php');
+        exit();
+    }
 } else {
     header('location: index.php?error=10');
     exit();

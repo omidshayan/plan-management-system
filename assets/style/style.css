@@ -11,9 +11,9 @@
     --input-border: #f77a1b9a;
     --hover: #ff7a1549;
     --border: #e96e1046;
-    --shadow: rgba(0, 0, 0, 0.54);
+    --shadow:  #0000008a;
+    --shadow: -1px 11px 28px -7px #0000008a;
 }
-
 * {
     margin: 0;
     padding: 0;
@@ -22,7 +22,6 @@
     box-sizing: border-box;
     text-decoration: none;
 }
-
 body {
     direction: rtl;
     overflow-x: hidden;
@@ -31,10 +30,9 @@ body {
     color: var(--text);
     font-family: "vazir";
 }
-
 .frame {
     width: 100%;
-    height: 100vh;
+    height: calc(100vh - 129px);
     border: none;
 }
 
@@ -96,6 +94,7 @@ body {
 
 .img-avatar img {
     width: 60px;
+    height: 60px;
     border: 1px solid var(--bg);
     border-radius: 50%;
 }
@@ -198,9 +197,10 @@ body {
 
 /* start content */
 .content {
-    margin-right: 345px;
+    margin-right: 320px;
     padding: 2rem 1.2rem 2rem 2rem;
     transition: all 0.5s;
+
 }
 
 .content.active {
@@ -231,7 +231,7 @@ main {
 
 /* content */
 .content-container {
-    box-shadow: 0px 35px 50px var(--shadow);
+    box-shadow: var(--shadow);
     background-color: var(--simillar);
     border: 1px solid var(--border);
     padding: 30px 20px;
@@ -269,7 +269,7 @@ main {
     height: 120px;
     border-width: 1px;
     border-style: solid;
-    box-shadow: -1px 11px 28px -7px var(--shadow);
+    box-shadow: var(--shadow);
 }
 
 .report .report-item .report-icon {
@@ -280,9 +280,10 @@ main {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 1px solid var(--hover);
+    border: 1px solid var(--bg);
     color: var(--main);
     padding: 10px;
+    color: var(--bg);
 }
 
 .report-text span {
@@ -302,8 +303,8 @@ main {
 .title-text {
     width: 100%;
     color: var(--text);
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 400;
 }
 
 /* input insert page */
@@ -362,7 +363,6 @@ main {
     border: 1px solid var(--input-border);
     margin-bottom: 25px;
 }
-
 .insert select option {
     font-size: 16px;
 }
@@ -426,8 +426,40 @@ main {
 .fl-table tr:hover {
     background-color: rgba(106, 95, 232, 0.171);
 }
-
-
+.filters{
+    margin-bottom: 12px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.input-filter{
+    background-color: var(--main);
+    height: 29px;
+    border-radius: 3px;
+    color: var(--text);
+    font-size: 16px;
+    outline: none;
+    border: 1px solid var(--input-border);
+}
+.m-btn{
+    font-family: 'vazir' !important;
+    padding: 2px 6px;
+    background-color: var(--bg) !important;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--simillar) !important;
+    transition: all .2s ease-in;
+    border: none;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid var(--bg);
+}
+.m-btn:hover{
+    background-color: var(--main) !important;
+    color: var(--text) !important;
+    border: 1px solid var(--bg);
+}
 /* login form */
 .login {
     width: 100%;
@@ -485,7 +517,7 @@ main {
     font-size: 14px;
     transition: 0.5s;
     outline: none;
-    border: 1px solid var(--border);
+    border: 1px solid var(--input-border);
     margin-bottom: 15px;
 }
 
@@ -500,7 +532,7 @@ main {
     margin: 5px;
     cursor: pointer;
     font-weight: bold;
-    background-color: var(--hover) !important;
+    background-color: var(--bg) !important;
 }
 
 .btn-custom:hover {
@@ -531,6 +563,7 @@ main {
 
 .countRow {
     position: absolute;
+    font-size: 12px;
 }
 
 .details-img img {

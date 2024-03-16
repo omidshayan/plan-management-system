@@ -48,7 +48,7 @@ if ($_FILES['image']['size'] > 0) {
 // select image? change img name
 if ($_FILES['image']['size'] > 0) {
     $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-    $src = "../users-images/" . time() . '.' . $extension;
+    $src = "../../assets/users-images/" . time() . '.' . $extension;
 } else {
     $src = null;
 }

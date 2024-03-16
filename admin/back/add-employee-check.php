@@ -5,6 +5,7 @@ $name = $_POST['name'];
 $phone = $_POST['phone'];
 $email = $_POST['email'];
 $role = $_POST['role'];
+$position = $_POST['position'];
 $date = date('Y/m/d');
 $password = $_POST['password'];
 
@@ -18,7 +19,7 @@ if (empty($name) || empty($phone) || empty($role) || empty($password)) {
 // Change img name
 if ($_FILES['image']['size'] > 0) {
     $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
-    $src = "../users-images/" . time() . '.' . $extension;
+    $src = "../../assets/users-images/" . time() . '.' . $extension;
 } else {
     $src = null;
 }
@@ -35,7 +36,7 @@ if ($phoneCount > 0) {
     exit;
 }
 
-$sql = "INSERT INTO `users` (`id`, `name`, `role`, `phone`, `password`, `email`, `image`, `created_at`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO `users` (`id`, `name`, `role`, `phone`, `password`, `email`, `image`, `created_at`, `position`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?)";
 $result = $connect->prepare($sql);
 
 $result->bindValue(1, $name);
@@ -45,6 +46,7 @@ $result->bindValue(4, $password);
 $result->bindValue(5, $email);
 $result->bindValue(6, $src);
 $result->bindValue(7, $date);
+$result->bindValue(8, $position);
 
 if ($result->execute()) {
     if ($_FILES['image']['size'] > 0) {

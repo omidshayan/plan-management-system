@@ -32,7 +32,7 @@ session_start();
                     <input type="text" name="phone" placeholder=" شماره موبایل خود را وارد کنید..." required><br>
                     <span>رمزعبور</span><br>
                     <input type="password" name="password" placeholder="رمزعبور خود را وارد کنید..." required><br><br>
-                    <input type="submit" value=" ورود " class="my-btn btn-custom">
+                    <input type="submit" value=" ورود " class="btn-custom btn-color">
                 </form>
             </div>
         </div>
