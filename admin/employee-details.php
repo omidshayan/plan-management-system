@@ -56,6 +56,7 @@ $date = explode(' ', $userInfo->created_at);
                 </li>
                 <li class="user-details">ایمیل: <?= $userInfo->email ?></li>
                 <li class="user-details"> رمزعبور: <?= $userInfo->password ?></li>
+                <li class="user-details">ثبت شده توسط: <?= $userInfo->who_it_recorded ?></li>
                 <li class="user-details"> تاریخ ثبت: <?= jdate('Y/m/d', strtotime($date[0])) ?></li>
             </ul>
         </div>

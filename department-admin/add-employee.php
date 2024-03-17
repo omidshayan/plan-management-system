@@ -74,13 +74,28 @@ include_once 'header.php';
         });
       </script>
     <?php endif; ?>
-
+    <?php if (isset($_GET['employee'])) : ?>
+      <script>
+        $(document).ready(function() {
+          Swal.fire({
+            icon: 'error',
+            title: 'خطا در ثبت',
+            text: 'برای این بخش کارمند ثبت شده است!',
+            customClass: {
+              'swal2-popup': 'black-background'
+            }
+          });
+        });
+      </script>
+    <?php endif; ?>
     <form action="back/add-employee-check.php" method="POST" enctype="multipart/form-data">
       <div class="lable">نام و تخلص <span class="errors">*</span></div>
       <input type="text" placeholder="نام و تخلص را وارد نمایید..." name="name" autocomplete="off">
       <div class="lable">وظیفه <span class="errors">*</span></div>
       <select name="role">
         <option selected disabled>وظیفه را انتخاب نمایید</option>
+        <option value="4">رئیس دیپارتمنت</option>
+        <option value="3">معاون</option>
         <option value="2">مدیر تدریسی</option>
         <option value="1">استاد</option>
       </select>
@@ -88,7 +103,7 @@ include_once 'header.php';
       <select name="position">
         <option selected disabled>انتخاب بخش مربوطه</option>
         <?php foreach ($sectionInfos as $sectionInfo) : ?>
-          <option value="<?= $sectionInfo['name'] ?>"><?= $sectionInfo['name'] ?></option>
+          <option value="<?= $sectionInfo['id'] ?>"><?= $sectionInfo['name'] ?></option>
         <?php endforeach; ?>
       </select>
       <div class="lable">موبایل <span class="errors">*</span></div>
@@ -99,7 +114,7 @@ include_once 'header.php';
       <input type="password" id="passwordInput" placeholder="رمز عبور را وارد کنید..." name="password">
       <div class="lable">انتخاب عکس</div>
       <input type="file" name="image">
-
+      <input type="hidden" name="who_it" value="<?=$_SESSION['user-name']?>">
       <input type="submit" value="ثبت" class="btn btn-color">
     </form>
 

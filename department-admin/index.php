@@ -6,6 +6,7 @@ if (!isset($_SESSION['department-admin'])) {
 include_once 'sidebar.php';
 ?>
 
+
 <!-- content -->
 <div class="content">
   <main>

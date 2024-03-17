@@ -88,7 +88,6 @@ include_once 'header.php';
         });
       </script>
     <?php endif; ?>
-
     <form action="back/add-employee-check.php" method="POST" enctype="multipart/form-data">
       <div class="lable">نام و تخلص <span class="errors">*</span></div>
       <input type="text" placeholder="نام و تخلص را وارد نمایید..." name="name" autocomplete="off">
@@ -115,7 +114,7 @@ include_once 'header.php';
       <input type="password" id="passwordInput" placeholder="رمز عبور را وارد کنید..." name="password">
       <div class="lable">انتخاب عکس</div>
       <input type="file" name="image">
-
+      <input type="hidden" name="who_it" value="<?=$_SESSION['user-name']?>">
       <input type="submit" value="ثبت" class="btn btn-color">
     </form>
 

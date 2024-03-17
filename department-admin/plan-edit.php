@@ -112,11 +112,11 @@ $shamsi_month = jdate('F', $plan->execution_time, '', 'Asia/Kabul', 'fa');
                 <select name="implementation">
                     <option disabled>مسئول پیگیری را انتخاب نمایید</option>
                     <?php foreach ($userInfos as $user) :
-                        $name = $user['name'];
+                        $name = $user['id'];
                         $selectedUser = ($name == $plan->implementation) ? 'selected' : '';
                     ?>
                         <option value="<?= $name ?>" <?= $selectedUser ?>>
-                            <?= $name ?>
+                            <?= $user['name'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -125,11 +125,11 @@ $shamsi_month = jdate('F', $plan->execution_time, '', 'Asia/Kabul', 'fa');
                 <select name="track">
                     <option disabled>پیگیری را انتخاب نمایید</option>
                     <?php foreach ($sectionInfos as $section) :
-                        $name = $section['name'];
+                        $name = $section['id'];
                         $selectedUser = ($name == $plan->track) ? 'selected' : '';
                     ?>
                         <option value="<?= $name ?>" <?= $selectedUser ?>>
-                            <?= $name ?>
+                            <?= $section['name'] ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
