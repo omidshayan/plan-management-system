@@ -71,7 +71,9 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
       <form action="back/section-edit-check.php" method="POST">
         <div class="lable">نام بخش <span class="errors">*</span></div>
         <input type="text" placeholder="نام را وارد نمایید..." name="name" value="<?= $userInfo->name ?>" autocomplete="off">
-        <div class="lable">رئیس بخش <span class="errors">*</span></div>
+
+        
+        <!-- <div class="lable">رئیس بخش <span class="errors">*</span></div>
         <select name="admin">
           <option disabled>رئیس را انتخاب نمایید</option>
           <?php foreach ($userInfos as $user) :
@@ -108,7 +110,7 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
               <?= $name ?>
             </option>
           <?php endforeach; ?>
-        </select>
+        </select> -->
 
         <div class="lable">ملاحضات</div>
         <input type="text" placeholder="ملاحضات را وارد نمایید..." value="<?= $userInfo->description ?>" name="description" autocomplete="off">

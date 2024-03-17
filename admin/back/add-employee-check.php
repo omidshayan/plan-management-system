@@ -15,6 +15,20 @@ if (empty($name) || empty($phone) || empty($role) || empty($password)) {
     exit;
 }
 
+if ($role > 1) {
+    $userInfo = "SELECT * FROM `users` WHERE `role` = ? AND `position` = ? AND `state` = 1";
+    $result = $connect->prepare($userInfo);
+    $result->bindValue(1, $role);
+    $result->bindValue(2, $position);
+    $result->execute();
+    $row = $result->rowCount();
+    if ($row > 0) {
+        header("location:../add-employee.php?employee=employee");
+        exit;
+    }
+}
+
+
 
 // Change img name
 if ($_FILES['image']['size'] > 0) {

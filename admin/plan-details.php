@@ -73,7 +73,13 @@ $shamsi_month = jdate('F', $planInfo->execution_time, '', 'Asia/Kabul', 'fa');
                 <li class="user-details">بودجه: <?= $planInfo->budget ?></li>
             </ul>
         </div>
-        <div class="details-img"><img src="admin/<?= $username->image ?>" alt="dd"></div>
+        <?php
+        if (isset($username->image)) { ?>
+            <div class="details-img"><img src="admin/<?= $username->image ?>" alt="dd"></div>
+        <?php } else { ?>
+            <div class="details-img"><img src="../assets/img/avatar.png" alt="dd"></div>
+        <?php }
+        ?>
 
     </div>
     <a href="plans.php" class="color btn p5 d-block">برگشت</a>

@@ -65,15 +65,15 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
                 <div class="lable">نام بخش <span class="errors">*</span></div>
                 <input type="text" placeholder="نام را وارد نمایید..." name="name" autocomplete="off">
 
-                <div class="lable">رئیس بخش <span class="errors">*</span></div>
+                <!-- <div class="lable">رئیس بخش <span class="errors">*</span></div>
                 <select name="admin">
                     <option selected disabled>رئیس را انتخاب نمایید</option>
                     <?php foreach ($userInfos as $userInfo) : ?>
                         <option value="<?= $userInfo['name'] ?>"><?= $userInfo['name'] ?></option>
                     <?php endforeach; ?>
-                </select>
+                </select> -->
 
-                <div class="lable">معاون بخش <span class="errors">*</span></div>
+                <!-- <div class="lable">معاون بخش <span class="errors">*</span></div>
                 <select name="deputy">
                     <option selected disabled>معاون را انتخاب نمایید</option>
                     <?php foreach ($userInfos as $userInfo) : ?>
@@ -87,7 +87,7 @@ $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
                     <?php foreach ($userInfos as $userInfo) : ?>
                         <option value="<?= $userInfo['name'] ?>"><?= $userInfo['name'] ?></option>
                     <?php endforeach; ?>
-                </select>
+                </select> -->
 
                 <div class="lable">ملاحضات</div>
                 <input type="text" placeholder="ملاحضات را وارد نمایید..." name="description" autocomplete="off">

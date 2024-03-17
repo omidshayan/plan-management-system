@@ -6,12 +6,14 @@ if (!isset($_SESSION['user-admin'])) {
 include_once 'header.php';
 include_once '../lib/jdf.php';
 include_once '../connect.php';
-$sql = "SELECT * FROM `users` WHERE `id` = ?";
+$sql = "SELECT *, (SELECT `name` FROM `sections` WHERE sections.id = users.position) AS `position` FROM `users` WHERE `id` = ?";
 $result = $connect->prepare($sql);
 $result->bindValue(1, $_GET['id']);
 $result->execute();
 $userInfo = $result->fetch(PDO::FETCH_OBJ);
 $date = explode(' ', $userInfo->created_at);
+
+
 ?>
 
 <!-- content -->
@@ -57,7 +59,13 @@ $date = explode(' ', $userInfo->created_at);
                 <li class="user-details"> تاریخ ثبت: <?= jdate('Y/m/d', strtotime($date[0])) ?></li>
             </ul>
         </div>
+        <?php
+        if (isset($userInfo->image)) { ?>
         <div class="details-img"><img src="admin/<?= $userInfo->image ?>" alt="profile"></div>
+        <?php } else { ?>
+            <div class="details-img"><img src="../assets/img/avatar.png" alt="dd"></div>
+        <?php }
+        ?>
     </div>
     <a href="employees.php" class="color btn p5 d-block">برگشت</a>
 </div>

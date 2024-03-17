@@ -83,8 +83,8 @@ $userInfo = $result->fetch(PDO::FETCH_OBJ);
         <div class="lable">وظیفه <span class="errors">*</span></div>
         <select name="role">
           <option disabled>وظیفه را انتخاب نمایید</option>
-          <option value="2" <?= ($userInfo->role == 2) ? 'selected' : '' ?>>رئیس دیپارتمنت</option>
-          <option value="3" <?= ($userInfo->role == 3) ? 'selected' : '' ?>>استاد</option>
+          <option value="1" <?= ($userInfo->role == 1) ? 'selected' : '' ?>>استاد</option>
+          <option value="2" <?= ($userInfo->role == 2) ? 'selected' : '' ?>>مدیر تدریسی</option>
         </select>
         <div class="lable">موبایل <span class="errors">*</span></div>
         <input type="text" placeholder="شماره موبایل را وارد نمایید..." name="phone" value="<?= $userInfo->phone ?>" autocomplete="off">

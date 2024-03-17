@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['user-admin'])){
+if (!isset($_SESSION['user-admin'])) {
     header('location: ../../404.php');
     exit();
 }
@@ -10,6 +10,7 @@ $name = $_POST['name'];
 $phone = $_POST['phone'];
 $email = $_POST['email'];
 $role = $_POST['role'];
+$position = $_POST['position'];
 $password = $_POST['password'];
 $id = $_POST['id'];
 $date = date('Y/m/d');
@@ -19,6 +20,26 @@ if (empty($name) || empty($phone) || empty($role) || empty($password)) {
     header("location:../employee-edit.php?empty=10&id=" . $id);
     exit;
 }
+
+
+if ($role > 1) {
+    $userInfo = "SELECT * FROM `users` WHERE `role` = ? AND `position` = ? AND `state` = 1";
+    $result = $connect->prepare($userInfo);
+    $result->bindValue(1, $role);
+    $result->bindValue(2, $position);
+    $result->execute();
+    $row = 0;
+    while ($row_data = $result->fetch(PDO::FETCH_ASSOC)) {
+        if ($row_data['id'] != $id) {
+            $row++;
+        }
+    }
+    if ($row > 0) {
+        header("location:../employee-edit.php?employee=employee&id=" . $id);
+        exit;
+    }
+}
+
 
 // check phone number
 $checkPhoneQuery = "SELECT COUNT(*) as total FROM `users` WHERE `phone` = ? AND `id` != ?";
@@ -54,7 +75,7 @@ if ($_FILES['image']['size'] > 0) {
 }
 
 // query update
-$sql = "UPDATE `users` SET `name` = ?, `role` = ?, `phone` = ?, `password` = ?, `email` = ?";
+$sql = "UPDATE `users` SET `name` = ?, `role` = ?, `phone` = ?, `password` = ?, `email` = ?, `position` = ?";
 if ($_FILES['image']['size'] > 0) {
     $sql .= ", `image` = ?";
 }
@@ -66,12 +87,13 @@ $result->bindValue(2, $role);
 $result->bindValue(3, $phone);
 $result->bindValue(4, $password);
 $result->bindValue(5, $email);
+$result->bindValue(6, $position);
 
 if ($_FILES['image']['size'] > 0) {
-    $result->bindValue(6, $src);
-    $result->bindValue(7, $id);
+    $result->bindValue(7, $src);
+    $result->bindValue(8, $id);
 } else {
-    $result->bindValue(6, $id);
+    $result->bindValue(7, $id);
 }
 
 if ($result->execute()) {

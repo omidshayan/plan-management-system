@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['user-admin'])){
+if (!isset($_SESSION['user-admin'])) {
     header('location: ../../404.php');
     exit();
 }
@@ -8,14 +8,11 @@ include_once '../../connect.php';
 
 // get input data
 $name = $_POST['name'];
-$admin = $_POST['admin'];
-$deputy = $_POST['deputy'];
-$teaching = $_POST['teaching'];
 $description = $_POST['description'];
 $id = $_POST['id'];
 
 // inputs validations
-if (empty($name) || empty($admin) || empty($deputy) || empty($teaching)) {
+if (empty($name)) {
     header("location:../section-edit.php?empty=10&id=" . $id);
     exit;
 }
@@ -34,16 +31,11 @@ if ($phoneCount > 0) {
 }
 
 // query update
-$sql = "UPDATE `sections` SET `name` = ?, `admin` = ?, `deputy` = ?, `teaching` = ?, `description` = ? WHERE id = ?";
-
+$sql = "UPDATE `sections` SET `name` = ?, `description` = ? WHERE id = ?";
 $result = $connect->prepare($sql);
-
 $result->bindValue(1, $name);
-$result->bindValue(2, $admin);
-$result->bindValue(3, $deputy);
-$result->bindValue(4, $teaching);
-$result->bindValue(5, $description);
-$result->bindValue(6, $id);
+$result->bindValue(2, $description);
+$result->bindValue(3, $id);
 
 
 if ($result->execute()) {

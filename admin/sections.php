@@ -29,7 +29,17 @@ include_once 'header.php';
                 $limit = 10;
                 $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
                 $start = ($currentPage - 1) * $limit;
-                $sql = "SELECT * FROM sections LIMIT $start, $limit";
+
+                // $sql = "SELECT * FROM sections LIMIT $start, $limit";
+                $sql = "SELECT *, (SELECT `name` FROM `users` WHERE users.position = sections.id AND users.role = 4) AS `admin`, (SELECT `name` FROM `users` WHERE users.position = sections.id AND users.role = 3) AS `deputy`, (SELECT `name` FROM `users` WHERE users.position = sections.id AND users.role = 2) AS `teaching` FROM `sections` LIMIT $start, $limit";
+
+
+                // $sql = "SELECT sections.*, users.name AS `admin`
+                // FROM sections
+                // LEFT JOIN users ON users.position = sections.id
+                // LIMIT $start, $limit
+                // ";
+
                 $result = $connect->query($sql);
                 $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
                 $number = ($currentPage - 1) * $limit + 1;
@@ -37,9 +47,9 @@ include_once 'header.php';
                     <tr>
                         <td><?= $number ?></td>
                         <td><?= $userInfo['name'] ?></td>
-                        <td><?= $userInfo['admin'] ?></td>
-                        <td><?= $userInfo['deputy'] ?></td>
-                        <td><?= $userInfo['teaching'] ?></td>
+                        <td><?= $userInfo['admin']  ? $userInfo['admin'] : ' - - - - ' ?></td>
+                        <td><?= $userInfo['deputy'] ? $userInfo['deputy'] : ' - - - - ' ?></td>
+                        <td><?= $userInfo['teaching'] ? $userInfo['teaching'] : ' - - - - ' ?></td>
                         <td><a href="section-edit.php?id=<?= $userInfo['id'] ?>"><i class="fas fa-edit"></i></a></td>
                         <td><a href="section-details.php?id=<?= $userInfo['id'] ?>" class="success">نمایش</a></td>
                     </tr>
