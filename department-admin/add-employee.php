@@ -94,7 +94,6 @@ include_once 'header.php';
       <div class="lable">وظیفه <span class="errors">*</span></div>
       <select name="role">
         <option selected disabled>وظیفه را انتخاب نمایید</option>
-        <option value="4">رئیس دیپارتمنت</option>
         <option value="3">معاون</option>
         <option value="2">مدیر تدریسی</option>
         <option value="1">استاد</option>

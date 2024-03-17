@@ -100,7 +100,7 @@ include_once 'header.php';
 
 <!-- content -->
 <div class="title">
-    <div class="title-text">نمایش پلن ها</div>
+    <div class="title-text">نمایش پلان ها</div>
 </div>
 <br>
 
@@ -108,7 +108,7 @@ include_once 'header.php';
 
     <div class="search-input">
         <span class="close-icon"><i class="fas fa-times color"></i></span>
-        <input type="text" name="search" id="search" placeholder="جستجو پلن..." autocomplete="off">
+        <input type="text" name="search" id="search" placeholder="جستجو پلان..." autocomplete="off">
         <ul class="result-search">
             <li class="res search-item color" role="option"></li>
         </ul>
