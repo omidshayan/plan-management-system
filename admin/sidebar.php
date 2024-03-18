@@ -92,6 +92,7 @@ $notifications = $result->fetchAll(PDO::FETCH_ASSOC);
           <ul class="submenu" style="display: none;">
             <li><a href="add-plan.php" class="siedbar-click" target="content-frame">ثبت پلان جدید</a></li>
             <li><a href="plans.php" class="siedbar-click" target="content-frame">نمایش پلان ها</a></li>
+            <li><a href="my-plans.php" class="siedbar-click" target="content-frame">پلان های من</a></li>
           </ul>
         </li>
 

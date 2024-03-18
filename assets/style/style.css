@@ -450,7 +450,40 @@ main {
     transition: all .3s ease-in;
     text-align: center;
 }
-
+.end-plan-btn{
+    width: 190px;
+    background-color: #4d9f0c;
+    padding: 5px 9px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    margin: 10px auto;
+    transition: 0.3s;
+    color: var(--main);
+    border: 1px solid #4d9f0c;
+}
+.change-plan-btn{
+    width: 150px;
+    padding: 5px 9px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    margin: 10px auto;
+    transition: 0.3s;
+    color: var(--main);
+    border: 1px solid #4d9f0c;
+    color: var(--text);
+}
+.end-plan-btn:hover{
+    border: 1px solid #4d9f0c;
+    background-color: var(--main);
+    color: var(--text);
+}
+.change-plan-btn:hover{
+    border: 1px solid #4d9f0c;
+    background-color: #4d9f0c;
+    color: var(--text);
+}
 .btn:hover {
     background-color: var(--main) !important;
 }

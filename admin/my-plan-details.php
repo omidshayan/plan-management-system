@@ -1,14 +1,14 @@
 <?php
 session_start();
-if (!isset($_SESSION['teaching'])) {
+if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
 include_once 'header.php';
 include_once '../lib/jdf.php';
-
+$userId = $_SESSION['user-id'];
 include_once '../connect.php';
 
-$sql = "SELECT *, (SELECT `name` FROM `users` WHERE users.id = plans.implementation) AS `implementation`, (SELECT `name` FROM `sections` WHERE sections.id = plans.track) AS `trackname`, (SELECT `name` FROM `users` WHERE users.id = plans.who_end_plan) AS `who_end_plan` FROM `plans` WHERE `id` = ?";
+$sql = "SELECT *, (SELECT `name` FROM `users` WHERE users.id = plans.implementation) AS `implement`, (SELECT `name` FROM `sections` WHERE sections.id = plans.track) AS `trackname`, (SELECT `id` FROM `users` WHERE users.id = plans.implementation) AS `user_id`, (SELECT `name` FROM `users` WHERE users.id = plans.who_end_plan) AS `who_end_plan` FROM `plans` WHERE `id` = ?";
 $result = $connect->prepare($sql);
 $result->bindValue(1, $_GET['id']);
 $result->execute();
@@ -94,15 +94,18 @@ $shamsi_month = jdate('F', $planInfo->execution_time, '', 'Asia/Kabul', 'fa');
 </div>
 <br>
 <?php
-if ($planInfo->status == 1) { ?>
-    <a href="back/change-status-plan.php?id=<?= $planInfo->id ?>">
-        <div class="end-plan-btn">تغییر به انجام شدن کار</div>
-    </a>
-<?php } else { ?>
-    <a href="back/change-status-plan.php?id=<?= $planInfo->id ?>">
-        <div class="change-plan-btn">تغییر به انجام نشدن</div>
-    </a>
+if (intval($userId) == intval($planInfo->user_id)) {
+    if ($planInfo->status == 1) { ?>
+        <a href="back/change-status-myplan.php?id=<?= $planInfo->id ?>">
+            <div class="end-plan-btn">تغییر به انجام شدن کار</div>
+        </a>
+    <?php } else { ?>
+        <a href="back/change-status-myplan.php?id=<?= $planInfo->id ?>">
+            <div class="change-plan-btn">تغییر به انجام نشدن</div>
+        </a>
 <?php }
+}
+
 ?>
 
 <div class="box-content-container">
@@ -112,13 +115,13 @@ if ($planInfo->status == 1) { ?>
             <ul>
                 <li class="user-details">نام پلان: <?= $planInfo->name ?></li>
                 <li class="user-details">هدف پلان: <?= $planInfo->target ?></li>
-                <li class="user-details">فعالیت: <?= ($planInfo->activity == 2) ? 'رئیس دیپارتمنت' : 'استاد' ?></li>
-                <li class="user-details">مسئول اجرا: <?= $planInfo->implementation ?></li>
+                <li class="user-details">فعالیت: <?= ($planInfo->activity) ?></li>
+                <li class="user-details">مسئول اجرا: <?= $planInfo->implement ?></li>
                 <li class="user-details">مسئول پیگیری: <?= $planInfo->trackname ?></li>
                 <li class="user-details">تاریخ ثبت: <?= jdate('Y/m/d', strtotime($date[0])) ?></li>
                 <li class="user-details">زمان اجرا: <?= $shamsi_month ?></li>
                 <li class="user-details">ثبت شده توسط: <?= $planInfo->who_it_added ?></li>
-                <li class="user-details"> بودجه: <?= ($planInfo->budget) ? $planInfo->budget : ' - - - - ' ?></li>
+                <li class="user-details"> بودجه: <?= ($planInfo->budget) ? $planInfo->budget : 'ثبت نشده' ?></li>
                 <?php
                 if ($planInfo->status == 1) { ?>
                     <li class="user-details" style="color: <?= $time_left_color ?>">زمان باقیمانده: <?= $time_left_text ?></li>
@@ -129,14 +132,14 @@ if ($planInfo->status == 1) { ?>
                 <?php
                 if ($planInfo->status == 2) { ?>
                     <li class="user-details">تغییر وضعیت توسط: <?= $planInfo->who_end_plan ?></li>
-                    <?php } ?>
-                    <li class="user-details" style="color: <?= $status_color ?>">وضعیت: <?= $status_text ?></li>
+                <?php } ?>
+                <li class="user-details" style="color: <?= $status_color ?>">وضعیت: <?= $status_text ?></li>
 
             </ul>
         </div>
 
     </div>
-    <a href="plans.php" class="color btn p5 d-block">برگشت</a>
+    <a href="my-plans.php" class="color btn p5 d-block">برگشت</a>
 </div>
 <!-- end content -->
 

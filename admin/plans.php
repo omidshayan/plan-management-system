@@ -151,10 +151,13 @@ include_once 'header.php';
             $time_left_color = 'red';
         } elseif ($days_left <= 5) {
             $time_left_color = 'yellow';
-        } elseif ($plan['status'] === 2) {
+        } elseif ($plan['status'] == 2) {
             $time_left_color = 'green';
         } else {
             $time_left_color = 'inherit';
+        }
+        if($plan['status'] == 2){
+            $time_left_color = 'green';
         }
 
         $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');
