@@ -207,7 +207,7 @@ body {
     position: absolute;
     background-color: var(--simillar);
     width: 170px;
-    height: 210px;
+    min-height: 180px;
     max-height: 210px;
     overflow-x: auto;
     border-radius: 10px;
@@ -246,6 +246,10 @@ body {
 }
 .notif-showAll:hover{
     color: var(--bg);
+}
+.noNotif{
+
+    text-align: center;
 }
 .hamber {
     display: flex;

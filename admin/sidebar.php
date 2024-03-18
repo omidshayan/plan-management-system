@@ -1,4 +1,14 @@
-<?php include_once 'header.php' ?>
+<?php include_once 'header.php';
+include_once '../connect.php';
+$userId = $_SESSION['user-id'];
+// $notifications = "SELECT *, (SELECT `name` FROM `plans` WHERE plans.id = notifications.plan_id) AS `name` FROM `notifications` WHERE `user_id` = ?";
+$notifications = "SELECT * FROM plans WHERE implementation = ? AND `status` = 1 ORDER BY id DESC"; 
+$result = $connect->prepare($notifications);
+$result->bindValue(1, $userId);
+$result->execute(); 
+$rowCount = $result->rowCount();
+$notifications = $result->fetchAll(PDO::FETCH_ASSOC);
+?>
 
 <input type="text" id="menu-toggle" />
 
@@ -11,14 +21,22 @@
   </header>
   <div class="appbar-items">
     <div class="notif">
-      <div class="notif-number">22</div>
+      <div class="notif-number"><?=$rowCount?></div>
       <i class="fas fa-bell"></i>
       <div class="notif-show-items">
         <div class="title-notif">آخرین رویدادها</div>
-        <a href="" class="notif-item"><div>item 1</div></a>
-        <a href="" class="notif-item"><div>item 1</div></a>
+        <?php 
+        if(!$notifications){ ?>
+        <br>
+        <div class="noNotif"> رویداد ناخوانده ای <br> وجود ندارد </div>
+        <br>
+      <?php }
+          foreach($notifications as $notification){ ?> 
+          <a href="unRead.php" target="content-frame" class="notif-item"><div><?=substr($notification['name'], 0, 34)?>...</div></a>
+        <?php }
+        ?>
         <hr class="hr">
-        <a href="notifications.php" target="content-frame" class="notif-showAll"><div>نمایش همه</div></a>
+        <a href="unRead.php" target="content-frame" class="notif-showAll"><div>نمایش همه</div></a>
       </div>
     </div>
   </div>

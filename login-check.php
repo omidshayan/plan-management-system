@@ -33,21 +33,21 @@ if ($row == 1) {
         $_SESSION['user-image'] = $userData->image;
         $_SESSION['deputy'] = 'deputy';
         $_SESSION['user-id'] = $userData->id;
-        header('location: department-admin/index.php');
+        header('location: deputy/index.php');
         exit();
     } elseif ($userData->role === 2) { // teaching manage
         $_SESSION['user-name'] = $userData->name;
         $_SESSION['user-image'] = $userData->image;
-        $_SESSION['user-admin'] = 'admin';
+        $_SESSION['teaching'] = 'teaching';
         $_SESSION['user-id'] = $userData->id;
-        header('location: admin/index.php');
+        header('location: teaching/index.php');
         exit();
     } else { // teachers
         $_SESSION['user-name'] = $userData->name;
         $_SESSION['user-image'] = $userData->image;
-        $_SESSION['user-admin'] = 'admin';
+        $_SESSION['teacher'] = 'teacher';
         $_SESSION['user-id'] = $userData->id;
-        header('location: admin/index.php');
+        header('location: teacher/index.php');
         exit();
     }
 } else {

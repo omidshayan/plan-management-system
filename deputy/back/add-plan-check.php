@@ -1,11 +1,8 @@
 <?php
 session_start();
-if (!isset($_SESSION['department-admin'])) {
-    header('location: ../../404.php');
-    exit();
-}
 include_once '../../connect.php';
 
+// get data
 $name = $_POST['name'];
 $target = $_POST['target'];
 $activiti = $_POST['activiti'];
@@ -18,29 +15,17 @@ if (isset($_POST['track'])) {
 $budget = $_POST['budget'];
 $execution_time = $_POST['execution_time'];
 $who_it_added = $_SESSION['user-name'];
-$id = $_POST['id'];
-$checkbox = $_POST['checkbox'];
+$datetime = date('Y/m/d H:i:s');
 
 // inputs validations
 if (empty($name) || empty($target) || empty($activiti) || empty($implementation) || empty($execution_time) || empty($track)) {
-    header("location:../plan-edit.php?empty=10&id=" . $id);
+    header("location:../add-plan.php?empty=error");
     exit;
 }
-$execution_time = intval(substr($execution_time, 0, -3));
+$execution_time= intval(substr($execution_time, 0, -3));
 
 
-// query update
-$sql = "UPDATE `plans` SET 
-        `name` = ?, 
-        `target` = ?, 
-        `activity` = ?, 
-        `implementation` = ?, 
-        `track` = ?, 
-        `budget` = ?";
-if (isset($checkbox)) {
-    $sql .= ", `execution_time` = ?";
-}
-$sql .= " WHERE `id` = ?";
+$sql = "INSERT INTO `plans` (`id`, `name`, `target`, `activity`, `implementation`, `track`, `budget`, `execution_time`, `who_it_added`, `created_at`) VALUES (NULL, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $result = $connect->prepare($sql);
 
 $result->bindValue(1, $name);
@@ -49,16 +34,12 @@ $result->bindValue(3, $activiti);
 $result->bindValue(4, $implementation);
 $result->bindValue(5, $track);
 $result->bindValue(6, $budget);
-if (isset($checkbox)) {
-    $result->bindValue(7, $execution_time);
-    $result->bindValue(8, $id);
-} else {
-    $result->bindValue(7, $id);
-}
-
+$result->bindValue(7, $execution_time);
+$result->bindValue(8, $who_it_added);
+$result->bindValue(9, $datetime);
 
 if ($result->execute()) {
-    header("location:../plan-edit.php?editing=20&id=" . $id);
+    header("location:../add-plan.php?inserted=20");
 } else {
-    header("location:../plan-edit.php?error=30&id=" . $id);
+    header("location:../add-plan.php?error=30");
 }

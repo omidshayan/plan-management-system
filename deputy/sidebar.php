@@ -66,7 +66,7 @@ $notifications = $result->fetchAll(PDO::FETCH_ASSOC);
     <div class="avatar">
       <div class="info-avatar">
         <div class="text-avatar">
-          <div>مدیر: <?= $_SESSION['user-name'] ?></div>
+          <div>معاون: <?= $_SESSION['user-name'] ?></div>
         </div>
       </div>
       <div class="img-avatar">

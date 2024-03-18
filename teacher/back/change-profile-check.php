@@ -1,6 +1,6 @@
 <?php
 session_start();
-if(!isset($_SESSION['department-admin'])){
+if(!isset($_SESSION['teaching'])){
     header('location: ../../404.php');
     exit();
 }
