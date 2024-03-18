@@ -10,7 +10,7 @@ include_once 'sidebar.php';
 <!-- content -->
 <div class="content">
   <main>
-    <iframe name="content-frame" src="notifications.php" class="frame" frameborder="0"></iframe>
+    <iframe name="content-frame" src="dashboard.php" class="frame" frameborder="0"></iframe>
   </main>
 </div>
 <!-- end content -->
