@@ -50,20 +50,6 @@ include_once 'header.php';
                 });
             </script>
         <?php endif; ?>
-        <?php if (isset($_GET['repeat'])) : ?>
-            <script>
-                $(document).ready(function() {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'خطا در ثبت',
-                        text: 'شماره موبایل تکراری است!',
-                        customClass: {
-                            'swal2-popup': 'black-background'
-                        }
-                    });
-                });
-            </script>
-        <?php endif; ?>
         <?php if (isset($_GET['empty'])) : ?>
             <script>
                 $(document).ready(function() {
@@ -78,13 +64,13 @@ include_once 'header.php';
                 });
             </script>
         <?php endif; ?>
-        <?php if (isset($_GET['employee'])) : ?>
+        <?php if (isset($_GET['larg'])) : ?>
             <script>
                 $(document).ready(function() {
                     Swal.fire({
                         icon: 'error',
                         title: 'خطا در ثبت',
-                        text: 'برای این بخش کارمند ثبت شده است!',
+                        text: 'حجم فایل ارسالی مناسب نیست، حداقل 20 ام بی باشد!',
                         customClass: {
                             'swal2-popup': 'black-background'
                         }

@@ -9,11 +9,17 @@ $user_id = $_POST['user_id'];
 $user_id_sender = $_SESSION['user-id'];
 $datetime = date('Y/m/d H:i:s');
 
+if (empty($_FILES['image']['size'])) {
+    header("location:../send-file.php?larg=file_too_large");
+    exit;
+}
+
 // inputs validations
 if (empty($content) || empty($title)) {
     header("location:../send-file.php?empty=10");
     exit;
 }
+
 
 // Change img name
 if ($_FILES['image']['size'] > 0) {
