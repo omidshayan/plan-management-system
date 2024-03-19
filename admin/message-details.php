@@ -15,13 +15,13 @@ $sql = "SELECT *,
         WHERE id = ? ";
 $result = $connect->prepare($sql);
 $result->bindValue(1, $id);
-$result->execute(); // اجرای کوئری
-$userInfos = $result->fetch(PDO::FETCH_OBJ); // دریافت رکورد
+$result->execute(); 
+$userInfos = $result->fetch(PDO::FETCH_OBJ); 
 ?>
 
 <!-- content -->
 <div class="title">
-    <div class="title-text">ارسال پیام جدید</div>
+    <div class="title-text">جزئیات پیام</div>
 </div>
 <br>
 

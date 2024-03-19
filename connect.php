@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('asia/kabul');
 include_once 'lib/jdf.php';
+include_once 'config.php';
 $username = 'root';
 $password = '';
 $dbname = "m_ghalib";

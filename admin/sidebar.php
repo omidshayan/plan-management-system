@@ -166,8 +166,8 @@ $messages = $result->fetchAll(PDO::FETCH_ASSOC);
           </a>
           <ul class="submenu" style="display: none;">
             <li><a href="send-file.php" class="siedbar-click" target="content-frame">ارسال فایل</a></li>
-            <li><a href="messages.php" class="siedbar-click" target="content-frame">فایل های ارسال شده</a></li>
-            <li><a href="my-messages.php" class="siedbar-click" target="content-frame">فایل های دریافتی </a></li>
+            <li><a href="files.php" class="siedbar-click" target="content-frame">فایل های ارسال شده</a></li>
+            <li><a href="my-files.php" class="siedbar-click" target="content-frame">فایل های دریافتی </a></li>
           </ul>
         </li>
 
