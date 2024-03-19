@@ -1,32 +1,49 @@
 <?php include_once 'header.php';
 include_once '../connect.php';
 $userId = $_SESSION['user-id'];
-$userSection = $_SESSION['user-section'];
-$notifications = "SELECT * FROM plans WHERE implementation = ? AND `seen` = 1 ORDER BY id DESC";
+$notifications = "SELECT * FROM plans WHERE implementation = ? AND `status` = 1 ORDER BY id DESC";
 $result = $connect->prepare($notifications);
 $result->bindValue(1, $userId);
 $result->execute();
 $rowCount = $result->rowCount();
 $notifications = $result->fetchAll(PDO::FETCH_ASSOC);
-
-$messages = "SELECT * FROM messages WHERE user_id = ? AND `status` = 1 ORDER BY id DESC";
-$result = $connect->prepare($messages);
-$result->bindValue(1, $userId);
-$result->execute();
-$rowCountMsg = $result->rowCount();
-$messages = $result->fetchAll(PDO::FETCH_ASSOC);
-
-$group_messages = "SELECT * FROM messages WHERE section_id = ? AND `status` = 1 ORDER BY id DESC";
-$result1 = $connect->prepare($group_messages);
-$result1->bindValue(1, $userSection);
-$result1->execute();
-$rowCountMsgGroup = $result1->rowCount();
-$messagesGroup = $result1->fetchAll(PDO::FETCH_ASSOC);
 ?>
+<script>
+ var lastRequestCount = 0;
 
+setInterval(function() {
+    $.ajax({
+        url: 'back/fetch_notifications.php',
+        method: 'GET',
+        data: {
+            userId: <?= $userId ?>
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                var notifications = response.notifications;
+                if (notifications.length > 0) {
+                    lastId = notifications[0].id;
+                }
+                var newRequestCount = notifications.length;
+                if (newRequestCount !== lastRequestCount) {
+                    lastRequestCount = newRequestCount;
+                    $('#requestCount').text(lastRequestCount);
+                }
+            } else {
+                console.error('مشکلی در دریافت اطلاعات وجود دارد.');
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}, 1000);
+
+</script>
 
 <input type="text" id="menu-toggle" />
-
+<a href="back/fetch_notifications?userId=<?= $userId ?>">link</a>
 <!-- start appbar -->
 <div class="appBar">
   <header>
@@ -35,47 +52,8 @@ $messagesGroup = $result1->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </header>
   <div class="appbar-items">
-
     <div class="notif">
-      <?php
-      $sumMsg = $rowCountMsgGroup + $rowCountMsg;
-      if (!$sumMsg == 0) { ?>
-        <div class="notif-number"><?= $sumMsg ?></div>
-      <?php }
-      ?>
-      <i class="fas fa-envelope"></i>
-      <div class="notif-show-items">
-        <div class="title-notif">آخرین رویدادها</div>
-        <?php
-        if (empty($messages) && empty($messagesGroup)) { ?>
-          <br>
-          <div class="noNotif"> پیام ناخوانده نشده ای <br> وجود ندارد </div>
-          <br>
-        <?php }
-        foreach ($messages as $message) { ?>
-          <a href="unReadMsg.php" target="content-frame" class="notif-item">
-            <div><?= substr($message['title'], 0, 34) ?>...</div>
-          </a>
-        <?php }
-          foreach ($messagesGroup as $msgGroup) { ?>
-          <a href="unReadMsg.php" target="content-frame" class="notif-item">
-            <div><?= substr($msgGroup['title'], 0, 34) ?>...</div>
-          </a>
-        <?php }
-        ?>
-        <hr class="hr">
-        <a href="unReadMsg.php" target="content-frame" class="notif-showAll">
-          <div>نمایش همه</div>
-        </a>
-      </div>
-    </div>
-
-    <div class="notif">
-      <?php
-      if (!$rowCount == 0) { ?>
-        <div class="notif-number"><?= $rowCount ?></div>
-      <?php }
-      ?>
+      <div class="notif-number" id="requestCount"></div>
       <i class="fas fa-bell"></i>
       <div class="notif-show-items">
         <div class="title-notif">آخرین رویدادها</div>
@@ -85,19 +63,18 @@ $messagesGroup = $result1->fetchAll(PDO::FETCH_ASSOC);
           <div class="noNotif"> رویداد ناخوانده ای <br> وجود ندارد </div>
           <br>
         <?php }
-        foreach ($notifications as $notification) { ?>
-          <a href="unRead.php" target="content-frame" class="notif-item">
-            <div><?= substr($notification['name'], 0, 34) ?>...</div>
-          </a>
-        <?php }
         ?>
+        <!-- <a href="unRead.php"  target="content-frame" class="notif-item">
+            <div id="notificationList"></div>
+          </a>
+         -->
+
         <hr class="hr">
         <a href="unRead.php" target="content-frame" class="notif-showAll">
-          <div>نمایش همه</div>
+          <div>نـــــــــمایـــش </div>
         </a>
       </div>
     </div>
-
   </div>
 </div>
 <br>
@@ -152,19 +129,6 @@ $messagesGroup = $result1->fetchAll(PDO::FETCH_ASSOC);
             <li><a href="add-plan.php" class="siedbar-click" target="content-frame">ثبت پلان جدید</a></li>
             <li><a href="plans.php" class="siedbar-click" target="content-frame">نمایش پلان ها</a></li>
             <li><a href="my-plans.php" class="siedbar-click" target="content-frame">پلان های من</a></li>
-          </ul>
-        </li>
-
-        <li class="has-submenu">
-          <i class="fas fa-sort-down submenu-icon"></i>
-          <a href="#">
-            <i class="fas fa-users"></i>
-            <span>پیام</span>
-          </a>
-          <ul class="submenu" style="display: none;">
-            <li><a href="send-message.php" class="siedbar-click" target="content-frame">ارسال پیام</a></li>
-            <li><a href="messages.php" class="siedbar-click" target="content-frame">پیام های ارسال شده</a></li>
-            <li><a href="my-messages.php" class="siedbar-click" target="content-frame">پیام های دریافتی </a></li>
           </ul>
         </li>
 

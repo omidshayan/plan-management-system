@@ -19,6 +19,7 @@ if ($row == 1) {
         $_SESSION['user-image'] = $userData->image;
         $_SESSION['user-admin'] = 'admin';
         $_SESSION['user-id'] = $userData->id;
+        $_SESSION['user-section'] = $userData->position;
         header('location: admin/index.php');
         exit();
     } elseif ($userData->role == 4) { // department admin

@@ -96,11 +96,13 @@ $shamsi_month = jdate('F', $planInfo->execution_time, '', 'Asia/Kabul', 'fa');
 <?php
 if (intval($userId) == intval($planInfo->user_id)) {
     if ($planInfo->status == 1) { ?>
-        <a href="back/change-status-plan.php?id=<?= $planInfo->id ?>">
+
+
+        <a href="#" id="openModalBtn">
             <div class="end-plan-btn">تغییر به انجام شدن کار</div>
         </a>
     <?php } else { ?>
-        <a href="back/change-status-plan.php?id=<?= $planInfo->id ?>">
+        <a href="#" id="openModalBtn">
             <div class="change-plan-btn">تغییر به انجام نشدن</div>
         </a>
 <?php }
@@ -108,6 +110,41 @@ if (intval($userId) == intval($planInfo->user_id)) {
 
 ?>
 
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <br>
+        <form action="back/change-status-myplan.php">
+            <div>ملاحاظات</div>
+            <input type="text" name="textForEnd" class="modalInput">
+
+            <input type="hidden" name="id" value="<?= $planInfo->id ?>">
+            <div class="btnModal">
+                <input type="submit" id="confirmBtn" value="تایید" class="confirmBtn">
+                <a href="#" id="cancelBtn" class="cancelBtn">کنسل</a>
+            </div>
+            <!-- <input type="submit" > -->
+        </form>
+    </div>
+</div>
+
+
+<script>
+    document.getElementById('openModalBtn').onclick = function() {
+        document.getElementById('myModal').style.display = 'block';
+    }
+    document.getElementsByClassName('close')[0].onclick = function() {
+        document.getElementById('myModal').style.display = 'none';
+    }
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('myModal')) {
+            document.getElementById('myModal').style.display = 'none';
+        }
+    }
+    document.getElementById('cancelBtn').onclick = function() {
+        document.getElementById('myModal').style.display = 'none';
+    }
+</script>
 <div class="box-content-container">
     <div class="details">
 
@@ -125,15 +162,23 @@ if (intval($userId) == intval($planInfo->user_id)) {
                 <?php
                 if ($planInfo->status == 1) { ?>
                     <li class="user-details" style="color: <?= $time_left_color ?>">زمان باقیمانده: <?= $time_left_text ?></li>
-                <?php } else { ?>
-                    <li class="user-details">تاریخ اتمام کار: <?= jdate('Y/m/d', strtotime($planInfo->updated_at)) ?></li>
                 <?php }
                 ?>
+
+                <?php if ($planInfo->status == 2 && isset($planInfo->updated_at)) : ?>
+                    <li class="user-details">تاریخ اتمام کار: <?= jdate('Y/m/d', strtotime($planInfo->updated_at)) ?></li>
+                <?php endif; ?>
+
                 <?php
                 if ($planInfo->status == 2) { ?>
                     <li class="user-details">تغییر وضعیت توسط: <?= $planInfo->who_end_plan ?></li>
                 <?php } ?>
                 <li class="user-details" style="color: <?= $status_color ?>">وضعیت: <?= $status_text ?></li>
+
+                <?php
+                if ($planInfo->status == 2) { ?>
+                    <li class="user-details">ملاحظات اتمام پلان: <?= $planInfo->textForEnd ?></li>
+                <?php } ?>
 
             </ul>
         </div>
