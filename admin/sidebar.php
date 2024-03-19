@@ -16,12 +16,7 @@ $result->execute();
 $rowCountMsg = $result->rowCount();
 $messages = $result->fetchAll(PDO::FETCH_ASSOC);
 
-$group_messages = "SELECT * FROM messages WHERE section_id = ? AND `status` = 1 ORDER BY id DESC";
-$result1 = $connect->prepare($group_messages);
-$result1->bindValue(1, $userSection);
-$result1->execute();
-$rowCountMsgGroup = $result1->rowCount();
-$messagesGroup = $result1->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -38,7 +33,7 @@ $messagesGroup = $result1->fetchAll(PDO::FETCH_ASSOC);
 
     <div class="notif">
       <?php
-      $sumMsg = $rowCountMsgGroup + $rowCountMsg;
+      $sumMsg =  $rowCountMsg;
       if (!$sumMsg == 0) { ?>
         <div class="notif-number"><?= $sumMsg ?></div>
       <?php }
@@ -55,11 +50,6 @@ $messagesGroup = $result1->fetchAll(PDO::FETCH_ASSOC);
         foreach ($messages as $message) { ?>
           <a href="unReadMsg.php" target="content-frame" class="notif-item">
             <div><?= substr($message['title'], 0, 34) ?>...</div>
-          </a>
-        <?php }
-          foreach ($messagesGroup as $msgGroup) { ?>
-          <a href="unReadMsg.php" target="content-frame" class="notif-item">
-            <div><?= substr($msgGroup['title'], 0, 34) ?>...</div>
           </a>
         <?php }
         ?>
@@ -165,6 +155,19 @@ $messagesGroup = $result1->fetchAll(PDO::FETCH_ASSOC);
             <li><a href="send-message.php" class="siedbar-click" target="content-frame">ارسال پیام</a></li>
             <li><a href="messages.php" class="siedbar-click" target="content-frame">پیام های ارسال شده</a></li>
             <li><a href="my-messages.php" class="siedbar-click" target="content-frame">پیام های دریافتی </a></li>
+          </ul>
+        </li>
+
+        <li class="has-submenu">
+          <i class="fas fa-sort-down submenu-icon"></i>
+          <a href="#">
+            <i class="fas fa-users"></i>
+            <span>مدیریت فایل ها</span>
+          </a>
+          <ul class="submenu" style="display: none;">
+            <li><a href="send-file.php" class="siedbar-click" target="content-frame">ارسال فایل</a></li>
+            <li><a href="messages.php" class="siedbar-click" target="content-frame">فایل های ارسال شده</a></li>
+            <li><a href="my-messages.php" class="siedbar-click" target="content-frame">فایل های دریافتی </a></li>
           </ul>
         </li>
 

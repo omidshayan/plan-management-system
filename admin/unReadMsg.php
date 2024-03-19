@@ -53,27 +53,13 @@ include_once 'header.php';
                 $number++;
             }
 
-            $msgGroup = "SELECT *, (SELECT `name` FROM `sections` WHERE sections.id = messages.section_id) AS `msgGroup` FROM `messages` WHERE section_id = ? AND `status` = 1 LIMIT $start, $limit";
-            $result1 = $connect->prepare($msgGroup);
-            $result1->bindValue(1, $date->position);
-            $result1->execute();
-            $msgGroups = $result1->fetchAll(PDO::FETCH_ASSOC);
-            
-            foreach ($msgGroups as $msgGroup) { ?>
-                <tr>
-                    <td><?= $number ?></td>
-                    <td><?= $msgGroup['title'] ?></td>
-                    <td><?= $msgGroup['msgGroup']  ? $msgGroup['msgGroup'] : ' - - - - ' ?></td>
-                    <td><a href="unReadMsgDetails.php?id=<?= $msgGroup['id'] ?>" class="success">نمایش</a></td>
-
-                </tr>
-            <?php
-                $number++;
-            }
-
             ?>
         </tbody>
     </table>
+    <?php if (empty($userInfos)) { ?>
+    <div class="notFound">موردی یافت نشد</div>
+<?php } ?>
+
 
 </div>
 <!-- end content -->

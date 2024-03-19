@@ -21,30 +21,51 @@ if (empty($user_id) && empty($section_id)) {
     exit;
 }
 
+if (isset($section_id)) {
+    $select_sections = "SELECT * FROM users WHERE position = ? ";
+    $s_result = $connect->prepare($select_sections);
+    $s_result->bindValue(1, $section_id);
+    $s_result->execute();
+    $users = $s_result->fetchAll(PDO::FETCH_ASSOC);
 
-// insert query
-$sql = "INSERT INTO `messages` (`id`, `title`, `content`, `user_id_sender`, `user_id`, `section_id`, `created_at`) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
-$result = $connect->prepare($sql);
+    if ($users) {
+        foreach ($users as $user) {
+            $sql1 = "INSERT INTO `messages` (`id`, `title`, `content`, `user_id_sender`, `user_id`,`section_id` , `created_at`) VALUES (NULL, ?, ?, ?, ?, ?, ?)";
+            $result1 = $connect->prepare($sql1);
+            $result1->bindValue(1, $title);
+            $result1->bindValue(2, $content);
+            $result1->bindValue(3, $user_id_sender);
+            $result1->bindValue(4, $user['id']);
+            $result1->bindValue(5, $section_id);
+            $result1->bindValue(6, $datetime);
+            $record = $result1->execute();
+        }
+        if ($record) {
+            unset($_SESSION['user_input']);
+            header("location:../send-message.php?inserted=20");
+            exit();
+        } else {
+            header("location:../send-message.php?error=30");
+            exit();
+        }
+    } else {
+        header("location:../send-message.php?error=30");
+        exit();
+    }
+} else {
 
-if ($user_id != null) {
+    // insert query
+    $sql = "INSERT INTO `messages` (`id`, `title`, `content`, `user_id_sender`, `user_id`, `created_at`) VALUES (NULL, ?, ?, ?, ?, ?)";
+    $result = $connect->prepare($sql);
     $result->bindValue(1, $title);
     $result->bindValue(2, $content);
     $result->bindValue(3, $user_id_sender);
     $result->bindValue(4, $user_id);
-    $result->bindValue(5, null);
-} else if ($section_id != null) {
-    $result->bindValue(1, $title);
-    $result->bindValue(2, $content);
-    $result->bindValue(3, $user_id_sender);
-    $result->bindValue(4, null);
-    $result->bindValue(5, $section_id);
-}
-
-$result->bindValue(6, $datetime);
-
-if ($result->execute()) {
-    unset($_SESSION['user_input']);
-    header("location:../send-message.php?inserted=20");
-} else {
-    header("location:../send-message.php?error=30");
+    $result->bindValue(5, $datetime);
+    if ($result->execute()) {
+        unset($_SESSION['user_input']);
+        header("location:../send-message.php?inserted=20");
+    } else {
+        header("location:../send-message.php?error=30");
+    }
 }

@@ -935,7 +935,11 @@ div:where(.swal2-container) div:where(.swal2-popup) {
     background-color: var(--main) !important;
     color: var(--text) !important;
 }
-
+.notFound{
+    color: red;
+    text-align: center;
+    margin: 10px;
+}
 .time-title {
     margin-bottom: 14px;
     display: flex;

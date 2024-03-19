@@ -33,16 +33,16 @@ include_once 'header.php';
             $result->bindValue(1, $id);
             $result->execute();
             $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
-
+            $userInfosCount = $result->rowCount();
             $number = ($currentPage - 1) * $limit + 1;
             foreach ($userInfos as $userInfo) { ?>
                 <tr>
                     <td><?= $number ?></td>
                     <td><?= $userInfo['title'] ?></td>
-                    <td><?= $userInfo['username']  ? $userInfo['username'] : ' - - - - ' ?></td>
+                    <td><?= $userInfo['sectionName']  ? ' - - - - ' : $userInfo['username'] ?></td>
                     <td><?= $userInfo['sectionName']  ? $userInfo['sectionName'] : ' - - - - ' ?></td>
                     <td><a href="message-details.php?id=<?= $userInfo['id'] ?>" class="success">نمایش</a></td>
-                    
+
                 </tr>
             <?php
                 $number++;
@@ -52,10 +52,7 @@ include_once 'header.php';
     </table>
 
     <?php
-    $sql = "SELECT COUNT(*) as total FROM messages ";
-    $result = $connect->query($sql);
-    $data = $result->fetch(PDO::FETCH_ASSOC);
-    $totalRecords = $data['total'];
+    $totalRecords = $userInfosCount;
     $totalPages = ceil($totalRecords / $limit);
     ?>
     <div class="tabel-info">

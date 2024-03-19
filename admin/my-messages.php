@@ -24,15 +24,16 @@ include_once 'header.php';
             <?php
             include_once '../connect.php';
             $id = $_SESSION['user-id'];
+
             $limit = 10;
             $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
             $start = ($currentPage - 1) * $limit;
-            $sql = "SELECT *, (SELECT `name` FROM `users` WHERE users.id = messages.user_id_sender) AS `username` FROM `messages` WHERE user_id = ? LIMIT $start, $limit";
+            $sql = "SELECT *, (SELECT `name` FROM `users` WHERE users.id = messages.user_id_sender) AS `username` FROM `messages` WHERE user_id = ? ORDER BY id DESC LIMIT $start, $limit";
             $result = $connect->prepare($sql);
             $result->bindValue(1, $id);
             $result->execute();
             $userInfos = $result->fetchAll(PDO::FETCH_ASSOC); 
-
+            $userInfosCount = $result->rowCount();
             $number = ($currentPage - 1) * $limit + 1;
             foreach ($userInfos as $userInfo) { ?>
                 <tr>
@@ -50,10 +51,7 @@ include_once 'header.php';
     </table>
 
     <?php
-    $sql = "SELECT COUNT(*) as total FROM messages";
-    $result = $connect->query($sql);
-    $data = $result->fetch(PDO::FETCH_ASSOC);
-    $totalRecords = $data['total'];
+    $totalRecords = $userInfosCount;
     $totalPages = ceil($totalRecords / $limit);
     ?>
     <div class="tabel-info">
