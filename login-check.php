@@ -27,6 +27,7 @@ if ($row == 1) {
         $_SESSION['user-image'] = $userData->image;
         $_SESSION['department-admin'] = 'department-admin';
         $_SESSION['user-id'] = $userData->id;
+        $_SESSION['user-section'] = $userData->position;
         header('location: department-admin/index.php');
         exit();
     } elseif ($userData->role == 3) { // deputy admin

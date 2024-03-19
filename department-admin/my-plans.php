@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['department-admin'])) {
+if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
 include_once 'header.php';
@@ -61,7 +61,9 @@ include_once 'header.php';
                 } else {
                     $time_left_color = 'inherit';
                 }
-
+                if($plan['status'] == 2){
+                    $time_left_color = 'green';
+                }
                 $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');
             ?>
                 <tr>
@@ -73,7 +75,7 @@ include_once 'header.php';
                     <td><?= ($plan['budget']) ? $plan['budget'] : ' - - - - ' ?></td>
                     <td style="color: <?= $time_left_color ?>"><?= $shamsi_month ?></td>
                     <td><a href="plan-edit.php?id=<?= $plan['id'] ?>"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="plan-details.php?id=<?= $plan['id'] ?>" class="success">نمایش</a></td>
+                    <td><a href="my-plan-details.php?id=<?= $plan['id'] ?>" class="success">نمایش</a></td>
                 </tr>
             <?php
                 $number++;

@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['department-admin'])) {
+if (!isset($_SESSION['user-admin'])) {
   header('location: ../index.php');
 }
 include_once 'header.php';

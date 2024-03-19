@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['department-admin'])) {
+if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
 include_once 'header.php';
@@ -39,7 +39,7 @@ include_once 'header.php';
             FROM plans 
             LEFT JOIN users ON plans.implementation = users.id 
             LEFT JOIN sections ON plans.track = sections.id 
-            WHERE plans.implementation = $userId AND `status` = 1 
+            WHERE plans.implementation = $userId AND `seen` = 1 
             ORDER BY plans.id DESC 
             LIMIT $start, $limit";
 
@@ -58,10 +58,14 @@ include_once 'header.php';
                     $time_left_color = 'red';
                 } elseif ($days_left <= 5) {
                     $time_left_color = 'yellow';
-                } elseif ($plan['status'] === 2) {
+                } elseif ($plan['status'] == 2) {
                     $time_left_color = 'green';
                 } else {
                     $time_left_color = 'inherit';
+                }
+
+                if ($plan['status'] == 2) {
+                    $time_left_color = 'green';
                 }
 
                 $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');
@@ -84,45 +88,9 @@ include_once 'header.php';
             ?>
         </tbody>
     </table>
-
-    <?php
-    $sql = "SELECT COUNT(*) as total FROM plans";
-    $result = $connect->query($sql);
-    $data = $result->fetch(PDO::FETCH_ASSOC);
-    $totalRecords = $data['total'];
-    $totalPages = ceil($totalRecords / $limit);
-    ?>
-    <div class="tabel-info">
-        <?php if ($totalPages > 1) : ?>
-            <ul class="pagination">
-                <?php
-                $startPage = max(1, $currentPage - 3);
-                $endPage = min($totalPages, $startPage + 3);
-
-                if ($currentPage > 1) {
-                    echo '<li><a href="?page=' . ($currentPage - 1) . '" class="paginate-item"><i class="fas fa-chevron-right"></i></a></li>';
-                }
-
-                if ($startPage > 1) {
-                    echo '<li><a href="?page=1" class="paginate-item">1</a></li>';
-                }
-
-                for ($i = $startPage; $i <= $endPage; $i++) {
-                    $active = ($i == $currentPage) ? 'active' : '';
-                    echo '<li><a class="paginate-item ' . $active . '" href="?page=' . $i . '">' . $i . '</a></li>';
-                }
-
-                if ($endPage < $totalPages) {
-                    echo '<li><a class="paginate-item" href="?page=' . $totalPages . '">' . $totalPages . '</a></li>';
-                }
-
-                if ($currentPage < $totalPages) {
-                    echo '<li><a href="?page=' . ($currentPage + 1) . '" class="paginate-item"><i class="fas fa-chevron-left"></i></a></li>';
-                }
-                ?>
-            </ul>
-        <?php endif; ?>
-    </div>
+    <?php if (empty($userInfos)) { ?>
+        <div class="notFound">موردی یافت نشد</div>
+    <?php } ?>
 </div>
 <!-- end content -->
 

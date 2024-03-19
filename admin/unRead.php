@@ -64,10 +64,10 @@ include_once 'header.php';
                     $time_left_color = 'inherit';
                 }
 
-                if($plan['status'] == 2){
+                if ($plan['status'] == 2) {
                     $time_left_color = 'green';
                 }
-                
+
                 $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');
             ?>
                 <tr>
@@ -88,7 +88,9 @@ include_once 'header.php';
             ?>
         </tbody>
     </table>
-
+    <?php if (empty($userInfos)) { ?>
+        <div class="notFound">موردی یافت نشد</div>
+    <?php } ?>
 </div>
 <!-- end content -->
 

@@ -128,7 +128,6 @@ if (intval($userId) == intval($planInfo->user_id)) {
     </div>
 </div>
 
-
 <script>
     document.getElementById('openModalBtn').onclick = function() {
         document.getElementById('myModal').style.display = 'block';
@@ -145,6 +144,7 @@ if (intval($userId) == intval($planInfo->user_id)) {
         document.getElementById('myModal').style.display = 'none';
     }
 </script>
+
 <div class="box-content-container">
     <div class="details">
 
@@ -162,12 +162,12 @@ if (intval($userId) == intval($planInfo->user_id)) {
                 <?php
                 if ($planInfo->status == 1) { ?>
                     <li class="user-details" style="color: <?= $time_left_color ?>">زمان باقیمانده: <?= $time_left_text ?></li>
-                <?php }
-                ?>
+                <?php }  ?>
 
                 <?php if ($planInfo->status == 2 && isset($planInfo->updated_at)) : ?>
                     <li class="user-details">تاریخ اتمام کار: <?= jdate('Y/m/d', strtotime($planInfo->updated_at)) ?></li>
                 <?php endif; ?>
+
 
                 <?php
                 if ($planInfo->status == 2) { ?>
@@ -184,7 +184,7 @@ if (intval($userId) == intval($planInfo->user_id)) {
         </div>
 
     </div>
-    <a href="plans.php" class="color btn p5 d-block">برگشت</a>
+    <a href="my-plans.php" class="color btn p5 d-block">برگشت</a>
 </div>
 <!-- end content -->
 

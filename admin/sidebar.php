@@ -17,6 +17,13 @@ $rowCountMsg = $result->rowCount();
 $messages = $result->fetchAll(PDO::FETCH_ASSOC);
 
 
+$files = "SELECT * FROM documents WHERE user_id = ? AND `status` = 1 ORDER BY id DESC";
+$result1 = $connect->prepare($files);
+$result1->bindValue(1, $userId);
+$result1->execute();
+$rowCountFiles = $result1->rowCount();
+$files = $result1->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -31,6 +38,34 @@ $messages = $result->fetchAll(PDO::FETCH_ASSOC);
   </header>
   <div class="appbar-items">
 
+  <div class="notif">
+      <?php
+      if (!$rowCountFiles == 0) { ?>
+        <div class="notif-number"><?= $rowCountFiles ?></div>
+      <?php }
+      ?>
+      <i class="fas fa-folder-open"></i>
+      <div class="notif-show-items">
+        <div class="title-notif">آخرین رویدادها</div>
+        <?php
+       if (empty($files)) { ?>
+          <br>
+          <div class="noNotif">   فایلی وجود ندارد </div>
+          <br>
+        <?php }
+        foreach ($files as $file) { ?>
+          <a href="unReadFiles.php" target="content-frame" class="notif-item">
+            <div><?= substr($file['title'], 0, 24) ?></div>
+          </a>
+        <?php }
+        ?>
+        <hr class="hr">
+        <a href="unReadFiles.php" target="content-frame" class="notif-showAll">
+          <div>نمایش همه</div>
+        </a>
+      </div>
+    </div>
+
     <div class="notif">
       <?php
       $sumMsg =  $rowCountMsg;
@@ -44,7 +79,7 @@ $messages = $result->fetchAll(PDO::FETCH_ASSOC);
         <?php
         if (empty($messages) && empty($messagesGroup)) { ?>
           <br>
-          <div class="noNotif"> پیام ناخوانده نشده ای <br> وجود ندارد </div>
+          <div class="noNotif"> پیام ناخوانده ای وجود ندارد </div>
           <br>
         <?php }
         foreach ($messages as $message) { ?>
@@ -72,7 +107,7 @@ $messages = $result->fetchAll(PDO::FETCH_ASSOC);
         <?php
         if (!$notifications) { ?>
           <br>
-          <div class="noNotif"> رویداد ناخوانده ای <br> وجود ندارد </div>
+          <div class="noNotif"> رویداد ناخوانده ای وجود ندارد </div>
           <br>
         <?php }
         foreach ($notifications as $notification) { ?>
@@ -148,7 +183,7 @@ $messages = $result->fetchAll(PDO::FETCH_ASSOC);
         <li class="has-submenu">
           <i class="fas fa-sort-down submenu-icon"></i>
           <a href="#">
-            <i class="fas fa-users"></i>
+          <i class="fas fa-envelope"></i>
             <span>پیام</span>
           </a>
           <ul class="submenu" style="display: none;">
@@ -161,7 +196,7 @@ $messages = $result->fetchAll(PDO::FETCH_ASSOC);
         <li class="has-submenu">
           <i class="fas fa-sort-down submenu-icon"></i>
           <a href="#">
-            <i class="fas fa-users"></i>
+          <i class="fas fa-folder-open"></i>
             <span>مدیریت فایل ها</span>
           </a>
           <ul class="submenu" style="display: none;">
@@ -208,7 +243,6 @@ $messages = $result->fetchAll(PDO::FETCH_ASSOC);
           </a>
         </li>
       </ul>
-      <span class="soft-house">Ghalib Software House</span>
     </div>
   </div>
 </div>

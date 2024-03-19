@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['department-admin'])) {
+if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
 include_once 'header.php';
@@ -100,7 +100,7 @@ include_once 'header.php';
 
 <!-- content -->
 <div class="title">
-    <div class="title-text">نمایش پلن ها</div>
+    <div class="title-text">نمایش پلان ها</div>
 </div>
 <br>
 
@@ -108,7 +108,7 @@ include_once 'header.php';
 
     <div class="search-input">
         <span class="close-icon"><i class="fas fa-times color"></i></span>
-        <input type="text" name="search" id="search" placeholder="جستجو پلن..." autocomplete="off">
+        <input type="text" name="search" id="search" placeholder="جستجو پلان..." autocomplete="off">
         <ul class="result-search">
             <li class="res search-item color" role="option"></li>
         </ul>
@@ -151,10 +151,13 @@ include_once 'header.php';
             $time_left_color = 'red';
         } elseif ($days_left <= 5) {
             $time_left_color = 'yellow';
-        } elseif ($plan['status'] === 2) {
+        } elseif ($plan['status'] == 2) {
             $time_left_color = 'green';
         } else {
             $time_left_color = 'inherit';
+        }
+        if($plan['status'] == 2){
+            $time_left_color = 'green';
         }
 
         $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');

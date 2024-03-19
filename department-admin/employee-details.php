@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['department-admin'])) {
+if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
 include_once 'header.php';
@@ -37,7 +37,7 @@ $date = explode(' ', $userInfo->created_at);
                     } elseif ($userInfo->role === 3) {
                         echo 'رئیس دیپارتمنت';
                     } else {
-                        echo 'رئیس: '.$userInfo->position.'';
+                        echo 'رئیس '.$userInfo->position.'';
                     }
                     ?>
                 </li>

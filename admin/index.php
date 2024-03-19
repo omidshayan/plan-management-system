@@ -10,7 +10,8 @@ include_once 'sidebar.php';
 <!-- content -->
 <div class="content">
   <main>
-    <iframe name="content-frame" src="my-files.php" class="frame" frameborder="0"></iframe>
+    <iframe name="content-frame" src="dashboard.php" class="frame" frameborder="0"></iframe>
+    <span class="soft-house">Ghalib Software House @2024</span>
   </main>
 </div>
 <!-- end content -->
@@ -79,6 +80,7 @@ include_once 'sidebar.php';
     window.removeEventListener('touchmove', preventDefault);
   }
 </script>
+
 
 
 <?php
