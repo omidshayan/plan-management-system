@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['teaching'])) {
+if (!isset($_SESSION['teacher'])) {
     header('location: ../../404.php');
     exit();
 }

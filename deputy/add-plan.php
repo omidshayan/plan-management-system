@@ -16,7 +16,7 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!-- content -->
 <div class="title">
-    <div class="title-text">ثبت پلن جدید</div>
+    <div class="title-text">ثبت پلان جدید</div>
 </div>
 <br>
 <div class="box-content-container">
@@ -77,7 +77,7 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
                 </div>
             </div>
 
-            <div class="lable">عنوان پلن <span class="errors">*</span> </div>
+            <div class="lable">عنوان پلان <span class="errors">*</span> </div>
 
             <input type="text" placeholder="عنوان را وارد نمایید..." name="name" autocomplete="off">
 

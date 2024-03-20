@@ -92,7 +92,7 @@ $userInfo = $result->fetch(PDO::FETCH_OBJ);
             <div class="lable">رمزعبور <span class="info">(می توانید رمزعبور خود را تغییر دهید)</span></div>
             <input type="password" id="passwordInput" value="<?= $userInfo->password ?>" placeholder="رمز عبور را وارد کنید..." name="password">
 
-            <img src="admin/<?= $userInfo->image ?>" alt="" class="imgProfile">
+            <img src="admin/<?= $userInfo->image ?>" alt="user profile" class="imgProfile">
             <input type="submit" value="ثبت" class="btn btn-color">
         </form>
 

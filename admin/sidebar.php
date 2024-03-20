@@ -154,7 +154,7 @@ $files = $result1->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
       <div class="img-avatar">
-        <img src="admin/<?= $_SESSION['user-image'] ?>" alt="profile" />
+        <img src="admin/<?= $_SESSION['user-image'] ?>" alt="" />
       </div>
     </div>
     <div class="sidebar-item">

@@ -23,7 +23,7 @@ $shamsi_month = jdate('F', $plan->execution_time, '', 'Asia/Kabul', 'fa');
 
 <!-- content -->
     <div class="title">
-        <div class="title-text">ویرایش پلن: <?= $plan->name ?></div>
+        <div class="title-text">ویرایش پلان: <?= $plan->name ?></div>
     </div>
     <br>
 
@@ -99,7 +99,7 @@ $shamsi_month = jdate('F', $plan->execution_time, '', 'Asia/Kabul', 'fa');
                     </div>
                 </div>
 
-                <div class="lable">عنوان پلن <span class="errors">*</span></div>
+                <div class="lable">عنوان پلان <span class="errors">*</span></div>
                 <input type="text" placeholder="عنوان را وارد نمایید..." name="name" value="<?= $plan->name ?>" autocomplete="off">
 
                 <div class="lable">هدف <span class="errors">*</span></div>

@@ -1,14 +1,31 @@
 <?php include_once 'header.php';
 include_once '../connect.php';
 $userId = $_SESSION['user-id'];
-// $notifications = "SELECT *, (SELECT `name` FROM `plans` WHERE plans.id = notifications.plan_id) AS `name` FROM `notifications` WHERE `user_id` = ?";
-$notifications = "SELECT * FROM plans WHERE implementation = ? AND `status` = 1 ORDER BY id DESC"; 
+$userSection = $_SESSION['user-section'];
+$notifications = "SELECT * FROM plans WHERE implementation = ? AND `seen` = 1 ORDER BY id DESC";
 $result = $connect->prepare($notifications);
 $result->bindValue(1, $userId);
-$result->execute(); 
+$result->execute();
 $rowCount = $result->rowCount();
 $notifications = $result->fetchAll(PDO::FETCH_ASSOC);
+
+$messages = "SELECT * FROM messages WHERE user_id = ? AND `status` = 1 ORDER BY id DESC";
+$result = $connect->prepare($messages);
+$result->bindValue(1, $userId);
+$result->execute();
+$rowCountMsg = $result->rowCount();
+$messages = $result->fetchAll(PDO::FETCH_ASSOC);
+
+
+$files = "SELECT * FROM documents WHERE user_id = ? AND `status` = 1 ORDER BY id DESC";
+$result1 = $connect->prepare($files);
+$result1->bindValue(1, $userId);
+$result1->execute();
+$rowCountFiles = $result1->rowCount();
+$files = $result1->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
+
 
 <input type="text" id="menu-toggle" />
 
@@ -20,25 +37,92 @@ $notifications = $result->fetchAll(PDO::FETCH_ASSOC);
     </div>
   </header>
   <div class="appbar-items">
-    <div class="notif">
-      <div class="notif-number"><?=$rowCount?></div>
-      <i class="fas fa-bell"></i>
+
+  <div class="notif">
+      <?php
+      if (!$rowCountFiles == 0) { ?>
+        <div class="notif-number"><?= $rowCountFiles ?></div>
+      <?php }
+      ?>
+      <i class="fas fa-folder-open"></i>
       <div class="notif-show-items">
         <div class="title-notif">آخرین رویدادها</div>
-        <?php 
-        if(!$notifications){ ?>
-        <br>
-        <div class="noNotif"> رویداد ناخوانده ای <br> وجود ندارد </div>
-        <br>
-      <?php }
-          foreach($notifications as $notification){ ?> 
-          <a href="unRead.php" target="content-frame" class="notif-item"><div><?=substr($notification['name'], 0, 34)?>...</div></a>
+        <?php
+       if (empty($files)) { ?>
+          <br>
+          <div class="noNotif">   فایلی وجود ندارد </div>
+          <br>
+        <?php }
+        foreach ($files as $file) { ?>
+          <a href="unReadFiles.php" target="content-frame" class="notif-item">
+            <div><?= substr($file['title'], 0, 24) ?></div>
+          </a>
         <?php }
         ?>
         <hr class="hr">
-        <a href="unRead.php" target="content-frame" class="notif-showAll"><div>نمایش همه</div></a>
+        <a href="unReadFiles.php" target="content-frame" class="notif-showAll">
+          <div>نمایش همه</div>
+        </a>
       </div>
     </div>
+
+    <div class="notif">
+      <?php
+      $sumMsg =  $rowCountMsg;
+      if (!$sumMsg == 0) { ?>
+        <div class="notif-number"><?= $sumMsg ?></div>
+      <?php }
+      ?>
+      <i class="fas fa-envelope"></i>
+      <div class="notif-show-items">
+        <div class="title-notif">آخرین رویدادها</div>
+        <?php
+        if (empty($messages) && empty($messagesGroup)) { ?>
+          <br>
+          <div class="noNotif"> پیام ناخوانده ای وجود ندارد </div>
+          <br>
+        <?php }
+        foreach ($messages as $message) { ?>
+          <a href="unReadMsg.php" target="content-frame" class="notif-item">
+            <div><?= substr($message['title'], 0, 34) ?>...</div>
+          </a>
+        <?php }
+        ?>
+        <hr class="hr">
+        <a href="unReadMsg.php" target="content-frame" class="notif-showAll">
+          <div>نمایش همه</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="notif">
+      <?php
+      if (!$rowCount == 0) { ?>
+        <div class="notif-number"><?= $rowCount ?></div>
+      <?php }
+      ?>
+      <i class="fas fa-bell"></i>
+      <div class="notif-show-items">
+        <div class="title-notif">آخرین رویدادها</div>
+        <?php
+        if (!$notifications) { ?>
+          <br>
+          <div class="noNotif"> رویداد ناخوانده ای وجود ندارد </div>
+          <br>
+        <?php }
+        foreach ($notifications as $notification) { ?>
+          <a href="unRead.php" target="content-frame" class="notif-item">
+            <div><?= substr($notification['name'], 0, 34) ?>...</div>
+          </a>
+        <?php }
+        ?>
+        <hr class="hr">
+        <a href="unRead.php" target="content-frame" class="notif-showAll">
+          <div>نمایش همه</div>
+        </a>
+      </div>
+    </div>
+
   </div>
 </div>
 <br>
@@ -66,7 +150,7 @@ $notifications = $result->fetchAll(PDO::FETCH_ASSOC);
     <div class="avatar">
       <div class="info-avatar">
         <div class="text-avatar">
-          <div> استاد: <?= $_SESSION['user-name'] ?></div>
+          <div>مدیر: <?= $_SESSION['user-name'] ?></div>
         </div>
       </div>
       <div class="img-avatar">
@@ -90,7 +174,34 @@ $notifications = $result->fetchAll(PDO::FETCH_ASSOC);
             <span>پلان ها</span>
           </a>
           <ul class="submenu" style="display: none;">
+            <li><a href="add-plan.php" class="siedbar-click" target="content-frame">ثبت پلان جدید</a></li>
             <li><a href="my-plans.php" class="siedbar-click" target="content-frame">پلان های من</a></li>
+          </ul>
+        </li>
+
+        <li class="has-submenu">
+          <i class="fas fa-sort-down submenu-icon"></i>
+          <a href="#">
+          <i class="fas fa-envelope"></i>
+            <span>پیام</span>
+          </a>
+          <ul class="submenu" style="display: none;">
+            <li><a href="send-message.php" class="siedbar-click" target="content-frame">ارسال پیام</a></li>
+            <li><a href="messages.php" class="siedbar-click" target="content-frame">پیام های ارسال شده</a></li>
+            <li><a href="my-messages.php" class="siedbar-click" target="content-frame">پیام های دریافتی </a></li>
+          </ul>
+        </li>
+
+        <li class="has-submenu">
+          <i class="fas fa-sort-down submenu-icon"></i>
+          <a href="#">
+          <i class="fas fa-folder-open"></i>
+            <span>مدیریت فایل ها</span>
+          </a>
+          <ul class="submenu" style="display: none;">
+            <li><a href="send-file.php" class="siedbar-click" target="content-frame">ارسال فایل</a></li>
+            <li><a href="files.php" class="siedbar-click" target="content-frame">فایل های ارسال شده</a></li>
+            <li><a href="my-files.php" class="siedbar-click" target="content-frame">فایل های دریافتی </a></li>
           </ul>
         </li>
 
@@ -107,7 +218,6 @@ $notifications = $result->fetchAll(PDO::FETCH_ASSOC);
           </a>
         </li>
       </ul>
-      <span class="soft-house">Ghalib Software House</span>
     </div>
   </div>
 </div>

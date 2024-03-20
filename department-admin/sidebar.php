@@ -154,7 +154,7 @@ $files = $result1->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </div>
       <div class="img-avatar">
-        <img src="admin/<?= $_SESSION['user-image'] ?>" alt="profile" />
+        <img src="admin/<?= $_SESSION['user-image'] ?>" alt="" />
       </div>
     </div>
     <div class="sidebar-item">
@@ -215,18 +215,6 @@ $files = $result1->fetchAll(PDO::FETCH_ASSOC);
           <ul class="submenu" style="display: none;">
             <li><a href="employees.php" class="siedbar-click" target="content-frame">کارمندان</a></li>
             <li><a href="add-employee.php" class="siedbar-click" target="content-frame">ثبت کارمند</a></li>
-          </ul>
-        </li>
-
-        <li class="has-submenu">
-          <i class="fas fa-sort-down submenu-icon"></i>
-          <a href="#">
-            <i class="fas fa-puzzle-piece"></i>
-            <span>بخش ها</span>
-          </a>
-          <ul class="submenu" style="display: none;">
-            <li><a href="add-section.php" class="siedbar-click" target="content-frame">ثبت بخش جدید</a></li>
-            <li><a href="sections.php" class="siedbar-click" target="content-frame">نمایش بخش ها</a></li>
           </ul>
         </li>
 

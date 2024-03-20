@@ -35,6 +35,7 @@ if ($row == 1) {
         $_SESSION['user-image'] = $userData->image;
         $_SESSION['deputy'] = 'deputy';
         $_SESSION['user-id'] = $userData->id;
+        $_SESSION['user-section'] = $userData->position;
         header('location: deputy/index.php');
         exit();
     } elseif ($userData->role == 2) { // teaching manage
@@ -42,6 +43,7 @@ if ($row == 1) {
         $_SESSION['user-image'] = $userData->image;
         $_SESSION['teaching'] = 'teaching';
         $_SESSION['user-id'] = $userData->id;
+        $_SESSION['user-section'] = $userData->position;
         header('location: teaching/index.php');
         exit();
     } else { // teachers
@@ -49,6 +51,7 @@ if ($row == 1) {
         $_SESSION['user-image'] = $userData->image;
         $_SESSION['teacher'] = 'teacher';
         $_SESSION['user-id'] = $userData->id;
+        $_SESSION['user-section'] = $userData->position;
         header('location: teacher/index.php');
         exit();
     }

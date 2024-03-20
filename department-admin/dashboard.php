@@ -1,12 +1,14 @@
 <?php include_once 'header.php';
+session_start();
 include_once '../connect.php';
-
-$sql = "SELECT COUNT(*) AS count_status_1 FROM plans";
-$result = $connect->query($sql);
+$userId = $_SESSION['user-id'];
+$sql = "SELECT COUNT(*) AS count_status_1 FROM plans WHERE implementation = $userId";
+$result = $connect->prepare($sql);
+$result->execute();
 $row = $result->fetch(PDO::FETCH_ASSOC);
 $count_status = $row['count_status_1'];
 
-$sql = "SELECT COUNT(*) AS count_status_2 FROM plans WHERE status = 2";
+$sql = "SELECT COUNT(*) AS count_status_2 FROM plans WHERE `status` = 2 AND implementation = $userId";
 $result = $connect->query($sql);
 $row = $result->fetch(PDO::FETCH_ASSOC);
 $count_status_2 = $row['count_status_2'];

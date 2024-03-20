@@ -5,115 +5,14 @@ if (!isset($_SESSION['teacher'])) {
 }
 include_once 'header.php';
 ?>
-<!-- <script>
-    $(document).ready(function() {
-        $('.close-icon').hide();
-        $('#search').keyup(function(e) {
-            $('.close-icon').show();
-            checkSearchInput();
-            var search = $('#search').val();
-            var resItems = $('.res').find('.search-item');
 
-            function checkSearchInput() {
-                var searchValue = $('#search').val().trim();
-                if (searchValue === '') {
-                    $('.result-search').removeClass('active');
-                } else {
-                    $('.result-search').addClass('active');
-                }
-            }
-
-            var currentSelectedItem = $('.res').find('.selected');
-
-            if (e.keyCode === 38) {
-                if (currentSelectedItem.length) {
-                    var prevItem = currentSelectedItem.removeClass('selected').prev('.search-item');
-                    if (prevItem.length) {
-                        prevItem.addClass('selected');
-                    } else {
-                        resItems.last().addClass('selected');
-                    }
-                } else {
-                    resItems.last().addClass('selected');
-                }
-            } else if (e.keyCode === 40) {
-                if (currentSelectedItem.length) {
-                    var nextItem = currentSelectedItem.removeClass('selected').next('.search-item');
-                    if (nextItem.length) {
-                        nextItem.addClass('selected');
-                    } else {
-                        resItems.first().addClass('selected');
-                    }
-                } else {
-                    resItems.first().addClass('selected');
-                }
-            } else if (e.keyCode === 13) {
-                if (currentSelectedItem.length) {
-                    var selectedItemText = currentSelectedItem.text();
-                    var selectedItemId = currentSelectedItem.data('id');
-
-                    $('#search').val(selectedItemText);
-                    $('.res').html('');
-                    var url = 'plan-details.php?id=';
-                    window.location.href = url + selectedItemId;
-                }
-            } else {
-                if (search != "") {
-                    $.ajax({
-                        url: 'back/live-search.php',
-                        type: 'get',
-                        data: {
-                            'search': search
-                        },
-                        success: function(data) {
-                            if (data.trim() === '') {
-                                $('.res').html('<span class="search-item color no-result">موردی یافت نشد &#128148;&#128555;</span>');
-                            } else {
-                                $('.res').html(data);
-                            }
-                        }
-                    });
-                } else {
-                    $('.res').html('');
-                }
-            }
-        });
-        $(document).on('click', '.search-item', function(e) {
-            e.preventDefault();
-            var selectedItemText = $(this).text();
-            var selectedItemId = $(this).data('id');
-            var url = 'plan-details.php?id=';
-
-            $('#search').val(selectedItemText);
-            $('.res').html('');
-            window.location.href = url + selectedItemId;
-        });
-
-        $('.close-icon').click(function() {
-            $('#search').val('');
-            $('.result-search').removeClass('active');
-            $('.close-icon').hide();
-        });
-
-    });
-</script> -->
 
 <!-- content -->
 <div class="title">
-    <div class="title-text">نمایش پلن ها</div>
+    <div class="title-text">نمایش پلان ها</div>
 </div>
 <br>
 
-<!-- <div class="search-box">
-
-    <div class="search-input">
-        <span class="close-icon"><i class="fas fa-times color"></i></span>
-        <input type="text" name="search" id="search" placeholder="جستجو پلن..." autocomplete="off">
-        <ul class="result-search">
-            <li class="res search-item color" role="option"></li>
-        </ul>
-    </div>
-</div> -->
 <div class="content-container">
     <table class="fl-table">
         <thead>
@@ -133,11 +32,22 @@ include_once 'header.php';
     <?php
     include_once '../connect.php';
     $limit = 10;
+    $userSection = $_SESSION['user-section'];
     $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
     $start = ($currentPage - 1) * $limit;
-    $sql = "SELECT plans.*, users.name AS implementation_name, sections.name AS track_name FROM plans LEFT JOIN users ON plans.implementation = users.id LEFT JOIN sections ON plans.track = sections.id ORDER BY plans.id DESC LIMIT $start, $limit";
+    // $sql = "SELECT plans.*, users.name AS implementation_name, sections.name AS track_name FROM plans LEFT JOIN users ON plans.implementation = users.id LEFT JOIN sections ON plans.track = sections.id ORDER BY plans.id DESC LIMIT $start, $limit";
+
+    $sql = "SELECT plans.*, users.name AS implementation_name, sections.name AS track_name 
+    FROM plans 
+    LEFT JOIN users ON plans.implementation = users.id 
+    LEFT JOIN sections ON plans.track = sections.id 
+    WHERE plans.track = $userSection
+    ORDER BY plans.id DESC 
+    LIMIT $start, $limit";
+
     $result = $connect->query($sql);
     $plans = $result->fetchAll(PDO::FETCH_ASSOC);
+    $rowCount = $result->rowCount();
     $number = ($currentPage - 1) * $limit + 1;
 
     foreach ($plans as $plan) {
@@ -151,10 +61,13 @@ include_once 'header.php';
             $time_left_color = 'red';
         } elseif ($days_left <= 5) {
             $time_left_color = 'yellow';
-        } elseif ($plan['status'] === 2) {
+        } elseif ($plan['status'] == 2) {
             $time_left_color = 'green';
         } else {
             $time_left_color = 'inherit';
+        }
+        if($plan['status'] == 2){
+            $time_left_color = 'green';
         }
 
         $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');
@@ -180,10 +93,7 @@ include_once 'header.php';
     </table>
 
     <?php
-    $sql = "SELECT COUNT(*) as total FROM plans";
-    $result = $connect->query($sql);
-    $data = $result->fetch(PDO::FETCH_ASSOC);
-    $totalRecords = $data['total'];
+    $totalRecords = $rowCount;
     $totalPages = ceil($totalRecords / $limit);
     ?>
     <div class="tabel-info">

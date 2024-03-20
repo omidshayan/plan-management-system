@@ -43,6 +43,7 @@ include_once 'header.php';
             LIMIT $start, $limit";
             $result = $connect->query($sql);
             $plans = $result->fetchAll(PDO::FETCH_ASSOC);
+            $rowCount = $result->rowCount();
             $number = ($currentPage - 1) * $limit + 1;
 
             foreach ($plans as $plan) {
@@ -61,7 +62,9 @@ include_once 'header.php';
                 } else {
                     $time_left_color = 'inherit';
                 }
-
+                if($plan['status'] == 2){
+                    $time_left_color = 'green';
+                }
                 $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');
             ?>
                 <tr>
@@ -73,7 +76,7 @@ include_once 'header.php';
                     <td><?= ($plan['budget']) ? $plan['budget'] : ' - - - - ' ?></td>
                     <td style="color: <?= $time_left_color ?>"><?= $shamsi_month ?></td>
                     <td><a href="plan-edit.php?id=<?= $plan['id'] ?>"><i class="fas fa-edit"></i></a></td>
-                    <td><a href="plan-details.php?id=<?= $plan['id'] ?>" class="success">نمایش</a></td>
+                    <td><a href="my-plan-details.php?id=<?= $plan['id'] ?>" class="success">نمایش</a></td>
                 </tr>
             <?php
                 $number++;
@@ -94,8 +97,6 @@ include_once 'header.php';
         <div class="countRow">
             تعداد کل: <?= $totalRecords ?>
         </div>
-
-
         <?php if ($totalPages > 1) : ?>
             <ul class="pagination">
                 <?php

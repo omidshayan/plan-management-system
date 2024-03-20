@@ -88,9 +88,6 @@ include_once 'header.php';
             ?>
         </tbody>
     </table>
-    <?php if (empty($userInfos)) { ?>
-        <div class="notFound">موردی یافت نشد</div>
-    <?php } ?>
 </div>
 <!-- end content -->
 

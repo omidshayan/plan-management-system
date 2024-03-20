@@ -104,7 +104,7 @@ include_once 'header.php';
         <?php endforeach; ?>
       </select>
       <div class="lable">موبایل <span class="errors">*</span></div>
-      <input type="text" placeholder="شماره موبایل را وارد نمایید..." name="phone" id="phoneField" autocomplete="off">
+      <input type="number" placeholder="شماره موبایل را وارد نمایید..." name="phone" id="phoneField" autocomplete="off">
       <div class="lable">ایمیل</div>
       <input type="text" placeholder="ایمیل را وارد نمایید..." name="email" autocomplete="off">
       <div class="lable">رمزعبور <span class="errors">*</span></div>

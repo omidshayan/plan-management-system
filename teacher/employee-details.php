@@ -37,7 +37,7 @@ $date = explode(' ', $userInfo->created_at);
                     } elseif ($userInfo->role === 3) {
                         echo 'رئیس دیپارتمنت';
                     } else {
-                        echo 'رئیس: '.$userInfo->position.'';
+                        echo 'رئیس '.$userInfo->position.'';
                     }
                     ?>
                 </li>

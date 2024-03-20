@@ -1,6 +1,6 @@
 <?php
 session_start();
-if (!isset($_SESSION['user-admin'])) {
+if (!isset($_SESSION['department-admin'])) {
   header('location: ../index.php');
 }
 include_once '../connect.php';
@@ -94,7 +94,6 @@ include_once 'header.php';
       <div class="lable">وظیفه <span class="errors">*</span></div>
       <select name="role">
         <option selected disabled>وظیفه را انتخاب نمایید</option>
-        <option value="4">رئیس دیپارتمنت</option>
         <option value="3">معاون</option>
         <option value="2">مدیر تدریسی</option>
         <option value="1">استاد</option>
@@ -107,7 +106,7 @@ include_once 'header.php';
         <?php endforeach; ?>
       </select>
       <div class="lable">موبایل <span class="errors">*</span></div>
-      <input type="text" placeholder="شماره موبایل را وارد نمایید..." name="phone" id="phoneField" autocomplete="off">
+      <input type="number" placeholder="شماره موبایل را وارد نمایید..." name="phone" id="phoneField" autocomplete="off">
       <div class="lable">ایمیل</div>
       <input type="text" placeholder="ایمیل را وارد نمایید..." name="email" autocomplete="off">
       <div class="lable">رمزعبور <span class="errors">*</span></div>
