@@ -45,6 +45,7 @@ include_once 'header.php';
 
             $result = $connect->query($sql);
             $plans = $result->fetchAll(PDO::FETCH_ASSOC);
+            $rowCount = $result->rowCount();
             $number = ($currentPage - 1) * $limit + 1;
 
             foreach ($plans as $plan) {
@@ -88,7 +89,7 @@ include_once 'header.php';
             ?>
         </tbody>
     </table>
-    <?php if (empty($userInfos)) { ?>
+    <?php if (empty($rowCount)) { ?>
         <div class="notFound">موردی یافت نشد</div>
     <?php } ?>
 </div>

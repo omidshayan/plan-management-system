@@ -39,7 +39,7 @@ include_once 'header.php';
             $result->bindValue(1, $id);
             $result->execute();
             $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
-
+            $rowCount = $result->rowCount();
             $number = ($currentPage - 1) * $limit + 1;
             foreach ($userInfos as $userInfo) { ?>
                 <tr>
@@ -56,7 +56,7 @@ include_once 'header.php';
             ?>
         </tbody>
     </table>
-    <?php if (empty($userInfos)) { ?>
+    <?php if (empty($rowCount)) { ?>
     <div class="notFound">موردی یافت نشد</div>
 <?php } ?>
 
