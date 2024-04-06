@@ -5,7 +5,7 @@ if (!isset($_SESSION['user-admin'])) {
 }
 include_once 'header.php';
 ?>
-<!-- <script>
+<script>
     $(document).ready(function() {
         $('.close-icon').hide();
         $('#search').keyup(function(e) {
@@ -96,7 +96,7 @@ include_once 'header.php';
         });
 
     });
-</script> -->
+</script>
 
 <!-- content -->
 <div class="title">
