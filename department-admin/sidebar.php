@@ -209,6 +209,18 @@ $files = $result1->fetchAll(PDO::FETCH_ASSOC);
         <li class="has-submenu">
           <i class="fas fa-sort-down submenu-icon"></i>
           <a href="#">
+            <i class="fas fa-puzzle-piece"></i>
+            <span>فعالیت ها</span>
+          </a>
+          <ul class="submenu" style="display: none;">
+            <li><a href="add-activity.php" class="siedbar-click" target="content-frame">ثبت</a></li>
+            <li><a href="activity.php" class="siedbar-click" target="content-frame">نمایش</a></li>
+          </ul>
+        </li>
+        
+        <li class="has-submenu">
+          <i class="fas fa-sort-down submenu-icon"></i>
+          <a href="#">
             <i class="fas fa-users"></i>
             <span>مدیریت کارمندان</span>
           </a>
