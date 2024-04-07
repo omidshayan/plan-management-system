@@ -4,6 +4,19 @@ if (!isset($_SESSION['user-admin'])) {
     header('location: ../index.php');
 }
 include_once 'header.php';
+$date = date('Y-m-d');
+// بررسی وجود پارامتر 'excel' در URL
+if (isset($_GET['excel']) && $_GET['excel'] == 'ok') {
+?>
+    <script>
+        var link = document.createElement("a");
+        link.href = 'plans-excel/<?=$date?>-plans.csv';
+        link.download = "<?=$date?>-plans.csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    </script>
+<?php }
 ?>
 <!-- <script>
     $(document).ready(function() {
@@ -132,7 +145,6 @@ include_once 'header.php';
         <tbody>
             <?php
             include_once '../connect.php';
-
             $limit = 10;
             $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
             $start = ($currentPage - 1) * $limit;
