@@ -1144,7 +1144,12 @@ div:where(.swal2-container) div:where(.swal2-popup) {
 .title-name-msg{
     margin-left: 5px;
 }
-
+.excel{
+    color: var(--text);
+    display: flex;
+    justify-content: end;
+    font-size: 13px;
+}
 
 
 
