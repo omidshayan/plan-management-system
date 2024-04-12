@@ -63,10 +63,9 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
             </script>
         <?php endif; ?>
 
-
         <form action="back/add-activity-check.php" method="POST">
             <div class="input-group">
-            <div class="input-item">
+                <div class="input-item">
                     <div class="lable">عنوان فعالیت </div>
                     <input type="text" placeholder="عنوان را وارد نمایید..." name="name" autocomplete="off">
                 </div>
@@ -75,15 +74,11 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
                     <input type="hidden" class="form-control d-none dateTime" name="date" autofocus>
                     <input type="text" class="expire" id="dateTime" placeholder="زمان اجرا را وارد نمایید..." autofocus>
                 </div>
-
             </div>
-
             <div class="lable">توضیحات فعالیت<span class="errors">*</span> </div>
             <textarea name="content" cols="30" rows="10" placeholder="..."></textarea>
-
             <input type="submit" value="ثبت" class="btn btn-color">
         </form>
-
     </div>
 </div>
 
