@@ -10,7 +10,7 @@ $textForEnd = $_GET['textForEnd'];
 $date = date('Y/m/d');
 $user = $_SESSION['user-id'];
 
-$userInfo = "SELECT `status` FROM `activities` WHERE `id` = ?";
+$userInfo = "SELECT `status` FROM `activity` WHERE `id` = ?";
 $result = $connect->prepare($userInfo);
 $result->bindValue(1, $id);
 $result->execute();
@@ -24,13 +24,12 @@ $status = $row['status'];
 $newStatus = ($status == 1) ? 2 : 1; 
 
 // query update
-$sql = "UPDATE `activities` SET `status` = ?, who_end_plan = ?, textForEnd = ?, `updated_at` = ? WHERE id = ? ";
+$sql = "UPDATE `activity` SET `status` = ?, textForEnd = ?, `updated_at` = ? WHERE id = ? ";
 $result = $connect->prepare($sql);
 $result->bindValue(1, $newStatus);
-$result->bindValue(2, $user);
-$result->bindValue(3, $textForEnd);
-$result->bindValue(4, $date);
-$result->bindValue(5, $id);
+$result->bindValue(2, $textForEnd);
+$result->bindValue(3, $date);
+$result->bindValue(4, $id);
 if ($result->execute()) {
     header("location:../activity-details.php?success=20&id=" . $id);
 } else {

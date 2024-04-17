@@ -62,7 +62,6 @@ $shamsi_month = jdate('F', $plan->execution_time, '', 'Asia/Kabul', 'fa');
                     const checkbox = document.getElementById('checkboxInput');
                     const dateTimeInput = document.getElementById('dateTime');
 
-                    // تابعی که وضعیت تیک باکس را بررسی و وضعیت فیلدهای مربوطه را تغییر می‌دهد
                     function toggleDateTimeInput() {
                         if (checkbox.checked) {
                             dateTimeInput.removeAttribute('disabled');
@@ -73,10 +72,8 @@ $shamsi_month = jdate('F', $plan->execution_time, '', 'Asia/Kabul', 'fa');
                         }
                     }
 
-                    // اولین بار هم تابع را فراخوانی می‌کنیم تا وضعیت اولیه تنظیم شود
                     toggleDateTimeInput();
 
-                    // رویداد change بر روی تیک باکس برای تغییر وضعیت فیلدها
                     checkbox.addEventListener('change', toggleDateTimeInput);
                 });
             </script>

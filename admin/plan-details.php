@@ -13,8 +13,6 @@ $result = $connect->prepare($sql);
 $result->bindValue(1, $_GET['id']);
 $result->execute();
 $planInfo = $result->fetch(PDO::FETCH_OBJ);
-
-
 $date = explode(' ', $planInfo->created_at);
 
 $current_time = time();

@@ -114,7 +114,7 @@ if (intval($userId) == intval($planInfo->user_id)) {
     <div class="modal-content">
         <span class="close">&times;</span>
         <br>
-        <form action="back/change-status-myplan.php">
+        <form action="back/change-status-activity.php">
             <div>ملاحاظات</div>
             <input type="text" name="textForEnd" class="modalInput">
 
