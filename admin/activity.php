@@ -5,18 +5,24 @@ if (!isset($_SESSION['user-admin'])) {
 }
 include_once 'header.php';
 ?>
+
 <!-- content -->
 <div class="title">
-    <div class="title-text">فعالیت ها</div>
+    <div class="title-text">نمایش فعالیت ها</div>
 </div>
 <br>
+
 <div class="content-container">
     <table class="fl-table">
         <thead>
             <tr>
                 <th class="th">#</th>
-                <th class="th">عنوان</th>
-                <th class="th">متن</th>
+                <th class="th">هدف</th>
+                <th class="th">فعالیت</th>
+                <th class="th">مسئول اجرا</th>
+                <th class="th">مسئول پیگیری</th>
+                <th class="th">بودجه</th>
+                <th class="th">زمان اجرا</th>
                 <th class="th">ویرایش</th>
                 <th class="th">جزئیات</th>
             </tr>
@@ -24,24 +30,52 @@ include_once 'header.php';
         <tbody>
             <?php
             include_once '../connect.php';
-            $id = $_SESSION['user-id'];
             $limit = 10;
+            $userId = $_SESSION['user-id'];
             $currentPage = isset($_GET['page']) ? $_GET['page'] : 1;
             $start = ($currentPage - 1) * $limit;
-            $sql = "SELECT *, (SELECT `name` FROM `users` WHERE users.id = activity.user_id) AS `username` FROM `activity` WHERE user_id = ? LIMIT $start, $limit";
-            $result = $connect->prepare($sql);
-            $result->bindValue(1, $id);
-            $result->execute();
-            $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
-            $userInfosCount = $result->rowCount();
+            $sql = "SELECT activities.*, users.name AS implementation_name, sections.name AS track_name 
+            FROM activities 
+            LEFT JOIN users ON activities.implementation = users.id 
+            LEFT JOIN sections ON activities.track = sections.id 
+            WHERE activities.implementation = $userId
+            ORDER BY activities.id DESC 
+            LIMIT $start, $limit";
+            $result = $connect->query($sql);
+            $plans = $result->fetchAll(PDO::FETCH_ASSOC);
             $number = ($currentPage - 1) * $limit + 1;
-            foreach ($userInfos as $userInfo) { ?>
+
+            foreach ($plans as $plan) {
+
+                $current_time = time();
+                $stored_time = $plan['execution_time'];
+                $time_diff = $stored_time - $current_time;
+                $days_left = round($time_diff / (60 * 60 * 24));
+
+                if ($days_left < 0) {
+                    $time_left_color = 'red';
+                } elseif ($days_left <= 5) {
+                    $time_left_color = 'yellow';
+                } elseif ($plan['status'] === 2) {
+                    $time_left_color = 'green';
+                } else {
+                    $time_left_color = 'inherit';
+                }
+                if ($plan['status'] == 2) {
+                    $time_left_color = 'green';
+                }
+                $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');
+            ?>
                 <tr>
                     <td><?= $number ?></td>
-                    <td><?= $userInfo['name'] ?></td>
-                    <td><?= $userInfo['content'] ?></td>
-                    <td><a href="activity-edit.php?id=<?= $userInfo['id'] ?>" class="success">نمایش</a></td>
-                    <td><a href="activity-details.php?id=<?= $userInfo['id'] ?>" class="success">نمایش</a></td>
+                    <td><?= $plan['name'] ?></td>
+                    <td><?= $plan['activity'] ?></td>
+                    <td><?= $plan['implementation_name'] ?></td>
+                    <td><?= $plan['track_name'] ?></td>
+                    <td><?= ($plan['budget']) ? $plan['budget'] : ' - - - - ' ?></td>
+                    <td style="color: <?= $time_left_color ?>"><?= $shamsi_month ?></td>
+                    <td><a href="activity-edit.php?id=<?= $plan['id'] ?>"><i class="fas fa-edit"></i></a></td>
+                    <td><a href="activity-details.php?id=<?= $plan['id'] ?>" class="success">نمایش</a></td>
                 </tr>
             <?php
                 $number++;
@@ -49,9 +83,13 @@ include_once 'header.php';
             ?>
         </tbody>
     </table>
-
     <?php
-    $totalRecords = $userInfosCount;
+    $sql = "SELECT COUNT(*) as total FROM activities WHERE implementation = ?";
+    $result = $connect->prepare($sql);
+    $result->bindValue(1, $userId);
+    $result->execute();
+    $data = $result->fetch(PDO::FETCH_ASSOC);
+    $totalRecords = $data['total'];
     $totalPages = ceil($totalRecords / $limit);
     ?>
     <div class="tabel-info">
@@ -63,15 +101,12 @@ include_once 'header.php';
                 <?php
                 $startPage = max(1, $currentPage - 3);
                 $endPage = min($totalPages, $startPage + 3);
-
                 if ($currentPage > 1) {
                     echo '<li><a href="?page=' . ($currentPage - 1) . '" class="paginate-item"><i class="fas fa-chevron-right"></i></a></li>';
                 }
-
                 if ($startPage > 1) {
                     echo '<li><a href="?page=1" class="paginate-item">1</a></li>';
                 }
-
                 for ($i = $startPage; $i <= $endPage; $i++) {
                     $active = ($i == $currentPage) ? 'active' : '';
                     echo '<li><a class="paginate-item ' . $active . '" href="?page=' . $i . '">' . $i . '</a></li>';

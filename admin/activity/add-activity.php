@@ -63,49 +63,22 @@ $sectionInfos = $result1->fetchAll(PDO::FETCH_ASSOC);
             </script>
         <?php endif; ?>
 
-
         <form action="back/add-activity-check.php" method="POST">
             <div class="input-group">
                 <div class="input-item">
-                    <div class="lable">زمان اجرا</div>
-                    <input type="hidden" class="form-control d-none dateTime" name="execution_time" autofocus>
-                    <input type="text" class="expire" id="dateTime" placeholder="زمان اجرا را وارد نمایید..." autofocus>
+                    <div class="lable">عنوان فعالیت </div>
+                    <input type="text" placeholder="عنوان را وارد نمایید..." name="name" autocomplete="off">
                 </div>
                 <div class="input-item">
-                    <div class="lable">بودجه <span class="info">(افغانی)</span> </div>
-                    <input type="text" placeholder="بودجه را وارد نمایید..." name="budget" autocomplete="off">
+                    <div class="lable">تاریخ</div>
+                    <input type="hidden" class="form-control d-none dateTime" name="date" autofocus>
+                    <input type="text" class="expire" id="dateTime" placeholder="زمان اجرا را وارد نمایید..." autofocus>
                 </div>
             </div>
-
-            <div class="lable">عنوان فعالیت <span class="errors">*</span> </div>
-
-            <input type="text" placeholder="عنوان را وارد نمایید..." name="name" autocomplete="off">
-
-            <div class="lable">هدف <span class="errors">*</span></div>
-            <input type="text" placeholder="هدف را وارد نمایید..." name="target" autocomplete="off">
-
-            <div class="lable">فعالیت <span class="errors">*</span></div>
-            <input type="text" placeholder="فعالیت را وارد نمایید..." name="activiti" autocomplete="off">
-
-            <div class="lable">مسئول اجرا <span class="errors">*</span></div>
-            <select name="implementation">
-                <option selected disabled>مسئول اجرا را انتخاب نمایید</option>
-                <?php foreach ($userInfos as $userInfo) : ?>
-                    <option value="<?= $userInfo['id'] ?>"><?= $userInfo['name'] ?></option>
-                <?php endforeach; ?>
-            </select>
-
-
-            <div class="lable">پیگیری توسط <span class="errors">*</span></div>
-            <select name="track">
-                <option selected disabled>مسئول پیگیری را انتخاب نمایید</option>
-                <?php foreach ($sectionInfos as $sectionInfo) : ?>
-                    <option value="<?= $sectionInfo['id'] ?>"><?= $sectionInfo['name'] ?></option>
-                <?php endforeach; ?>
-            </select>
+            <div class="lable">توضیحات فعالیت<span class="errors">*</span> </div>
+            <textarea name="content" cols="30" rows="10" placeholder="..."></textarea>
             <input type="submit" value="ثبت" class="btn btn-color">
         </form>
-
     </div>
 </div>
 

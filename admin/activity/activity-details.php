@@ -8,7 +8,7 @@ include_once '../lib/jdf.php';
 $userId = $_SESSION['user-id'];
 include_once '../connect.php';
 
-$sql = "SELECT *, (SELECT `name` FROM `users` WHERE users.id = activities.implementation) AS `implement`, (SELECT `name` FROM `sections` WHERE sections.id = activities.track) AS `trackname`, (SELECT `id` FROM `users` WHERE users.id = activities.implementation) AS `user_id`, (SELECT `name` FROM `users` WHERE users.id = activities.who_end_plan) AS `who_end_plan` FROM `activities` WHERE `id` = ?";
+$sql = "SELECT *, (SELECT `name` FROM `users` WHERE users.id = activity.user_id) AS `username` FROM `activity` WHERE `id` = ?";
 $result = $connect->prepare($sql);
 $result->bindValue(1, $_GET['id']);
 $result->execute();
@@ -19,7 +19,7 @@ $date = explode(' ', $planInfo->created_at);
 
 $current_time = time();
 
-$stored_time = $planInfo->execution_time;
+$stored_time = $planInfo->date;
 
 $time_diff = $stored_time - $current_time;
 
@@ -44,7 +44,7 @@ if ($planInfo->status == 2) {
     $status_color = 'red';
 }
 
-$shamsi_month = jdate('F', $planInfo->execution_time, '', 'Asia/Kabul', 'fa');
+$shamsi_month = jdate('F', $planInfo->date, '', 'Asia/Kabul', 'fa');
 ?>
 
 <?php if (isset($_GET['success'])) : ?>
@@ -80,7 +80,7 @@ $shamsi_month = jdate('F', $planInfo->execution_time, '', 'Asia/Kabul', 'fa');
             Swal.fire({
                 icon: 'error',
                 title: 'خطا در ثبت',
-                text: 'مشکل در تغییر وضعیت فعالیت!',
+                text: 'مشکل در تغییر وضعیت !',
                 customClass: {
                     'swal2-popup': 'black-background'
                 }
@@ -114,7 +114,7 @@ if (intval($userId) == intval($planInfo->user_id)) {
     <div class="modal-content">
         <span class="close">&times;</span>
         <br>
-        <form action="back/change-status-myplan.php">
+        <form action="back/change-status-activity.php">
             <div>ملاحاظات</div>
             <input type="text" name="textForEnd" class="modalInput">
 
@@ -151,14 +151,9 @@ if (intval($userId) == intval($planInfo->user_id)) {
         <div class="details-info">
             <ul>
                 <li class="user-details">نام فعالیت: <?= $planInfo->name ?></li>
-                <li class="user-details">هدف فعالیت: <?= $planInfo->target ?></li>
-                <li class="user-details">فعالیت: <?= ($planInfo->activity) ?></li>
-                <li class="user-details">مسئول اجرا: <?= $planInfo->implement ?></li>
-                <li class="user-details">مسئول پیگیری: <?= $planInfo->trackname ?></li>
+                <li class="user-details">توضیحات: <?= $planInfo->content ?></li>
                 <li class="user-details">تاریخ ثبت: <?= jdate('Y/m/d', strtotime($date[0])) ?></li>
                 <li class="user-details">زمان اجرا: <?= $shamsi_month ?></li>
-                <li class="user-details">ثبت شده توسط: <?= $planInfo->who_it_added ?></li>
-                <li class="user-details"> بودجه: <?= ($planInfo->budget) ? $planInfo->budget : 'ثبت نشده' ?></li>
                 <?php
                 if ($planInfo->status == 1) { ?>
                     <li class="user-details" style="color: <?= $time_left_color ?>">زمان باقیمانده: <?= $time_left_text ?></li>
@@ -171,10 +166,8 @@ if (intval($userId) == intval($planInfo->user_id)) {
 
                 <?php
                 if ($planInfo->status == 2) { ?>
-                    <li class="user-details">تغییر وضعیت توسط: <?= $planInfo->who_end_plan ?></li>
                 <?php } ?>
                 <li class="user-details" style="color: <?= $status_color ?>">وضعیت: <?= $status_text ?></li>
-
                 <?php
                 if ($planInfo->status == 2) { ?>
                     <li class="user-details">ملاحظات اتمام فعالیت: <?= $planInfo->textForEnd ?></li>
