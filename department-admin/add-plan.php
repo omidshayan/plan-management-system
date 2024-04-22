@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['department-admin'])) {
-    header('location: ../index.php');
+    header('location: ../404.php');
 }
 
 include_once 'header.php';
