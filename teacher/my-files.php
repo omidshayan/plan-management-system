@@ -32,7 +32,7 @@ include_once 'header.php';
             $result = $connect->prepare($sql);
             $result->bindValue(1, $id);
             $result->execute();
-            $userInfos = $result->fetchAll(PDO::FETCH_ASSOC); 
+            $userInfos = $result->fetchAll(PDO::FETCH_ASSOC);
             $userInfosCount = $result->rowCount();
             $number = ($currentPage - 1) * $limit + 1;
             foreach ($userInfos as $userInfo) { ?>
@@ -41,7 +41,7 @@ include_once 'header.php';
                     <td><?= $userInfo['title'] ?></td>
                     <td><?= $userInfo['username']  ? $userInfo['username'] : ' - - - - ' ?></td>
                     <td><a href="get-file-details.php?id=<?= $userInfo['id'] ?>" class="success">نمایش</a></td>
-                    
+
                 </tr>
             <?php
                 $number++;

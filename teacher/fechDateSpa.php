@@ -9,37 +9,36 @@ $rowCount = $result->rowCount();
 $notifications = $result->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <script>
- var lastRequestCount = 0;
+  var lastRequestCount = 0;
 
-setInterval(function() {
+  setInterval(function() {
     $.ajax({
-        url: 'back/fetch_notifications.php',
-        method: 'GET',
-        data: {
-            userId: <?= $userId ?>
-        },
-        dataType: 'json',
-        success: function(response) {
-            if (response.status === 'success') {
-                var notifications = response.notifications;
-                if (notifications.length > 0) {
-                    lastId = notifications[0].id;
-                }
-                var newRequestCount = notifications.length;
-                if (newRequestCount !== lastRequestCount) {
-                    lastRequestCount = newRequestCount;
-                    $('#requestCount').text(lastRequestCount);
-                }
-            } else {
-                console.error('مشکلی در دریافت اطلاعات وجود دارد.');
-            }
-        },
-        error: function(xhr, status, error) {
-            console.error(error);
+      url: 'back/fetch_notifications.php',
+      method: 'GET',
+      data: {
+        userId: <?= $userId ?>
+      },
+      dataType: 'json',
+      success: function(response) {
+        if (response.status === 'success') {
+          var notifications = response.notifications;
+          if (notifications.length > 0) {
+            lastId = notifications[0].id;
+          }
+          var newRequestCount = notifications.length;
+          if (newRequestCount !== lastRequestCount) {
+            lastRequestCount = newRequestCount;
+            $('#requestCount').text(lastRequestCount);
+          }
+        } else {
+          console.error('مشکلی در دریافت اطلاعات وجود دارد.');
         }
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+      }
     });
-}, 1000);
-
+  }, 1000);
 </script>
 
 <input type="text" id="menu-toggle" />
