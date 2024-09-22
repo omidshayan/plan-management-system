@@ -13,4 +13,3 @@ $response = [
     'notifications' => $notifications,
 ];
 echo json_encode($response);
-

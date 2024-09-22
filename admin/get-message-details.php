@@ -15,8 +15,8 @@ $sql = "SELECT *,
         WHERE id = ? ";
 $result = $connect->prepare($sql);
 $result->bindValue(1, $id);
-$result->execute(); // اجرای کوئری
-$userInfos = $result->fetch(PDO::FETCH_OBJ); // دریافت رکورد
+$result->execute();
+$userInfos = $result->fetch(PDO::FETCH_OBJ);
 ?>
 
 <!-- content -->
@@ -27,7 +27,7 @@ $userInfos = $result->fetch(PDO::FETCH_OBJ); // دریافت رکورد
 
 <div class="box-content-container">
     <div class="insert">
-        پیام ارسال شده توسط <?=$userInfos->username?>
+        پیام ارسال شده توسط <?= $userInfos->username ?>
         <br>
         <div class="contetn-msg">
             <div class="title-name-msg"> عنوان پیام: </div>
@@ -53,8 +53,6 @@ $userInfos = $result->fetch(PDO::FETCH_OBJ); // دریافت رکورد
     </div>
 </div>
 <!-- end content -->
-
-
 <?php
 include_once 'footer.php';
 ?>

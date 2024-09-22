@@ -54,7 +54,9 @@ $userInfos = $result->fetch(PDO::FETCH_OBJ);
             <div class="title-name-msg"> تاریخ ارسال: </div>
             <div> <?= jdate('Y/m/d', strtotime($userInfos->created_at)) ?> </div>
         </div>
-        <a href="<?=CURRENT_DOMAIN.$userInfos->url?>" target="_blank" class="color"><div class="download">دانلود فایل</div></a>
+        <a href="<?= CURRENT_DOMAIN . $userInfos->url ?>" target="_blank" class="color">
+            <div class="download">دانلود فایل</div>
+        </a>
         <a href="files.php" class="color btn p5 d-block">برگشت</a>
     </div>
 </div>

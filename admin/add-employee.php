@@ -114,7 +114,7 @@ include_once 'header.php';
       <input type="password" id="passwordInput" placeholder="رمز عبور را وارد کنید..." name="password">
       <div class="lable">انتخاب عکس</div>
       <input type="file" name="image">
-      <input type="hidden" name="who_it" value="<?=$_SESSION['user-name']?>">
+      <input type="hidden" name="who_it" value="<?= $_SESSION['user-name'] ?>">
       <input type="submit" value="ثبت" class="btn btn-color">
     </form>
 
