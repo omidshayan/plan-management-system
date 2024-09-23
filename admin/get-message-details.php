@@ -33,23 +33,18 @@ $userInfos = $result->fetch(PDO::FETCH_OBJ);
             <div class="title-name-msg"> عنوان پیام: </div>
             <div> <?= $userInfos->title ?> </div>
         </div>
-
         <div class="contetn-msg">
             <div class="title-name-msg"> متن پیام: </div>
             <div> <?= $userInfos->content ?> </div>
         </div>
-
         <div class="contetn-msg">
             <div class="title-name-msg">گیرنده: شما</div>
         </div>
-
         <div class="contetn-msg">
             <div class="title-name-msg"> تاریخ ارسال: </div>
             <div> <?= jdate('Y/m/d', strtotime($userInfos->created_at)) ?> </div>
         </div>
-
         <a href="my-messages.php" class="color btn p5 d-block">برگشت</a>
-
     </div>
 </div>
 <!-- end content -->

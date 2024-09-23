@@ -71,13 +71,10 @@ $shamsi_month = jdate('F', $plan->execution_time, '', 'Asia/Kabul', 'fa');
                         dateTimeInput.classList.add('grayed-out');
                     }
                 }
-
                 toggleDateTimeInput();
-
                 checkbox.addEventListener('change', toggleDateTimeInput);
             });
         </script>
-
 
         <form action="back/plan-edit-check.php" method="POST">
             <span class="time-title">زمان اجرا: ماه <?= $shamsi_month ?></span>

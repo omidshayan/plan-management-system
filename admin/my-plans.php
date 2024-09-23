@@ -61,7 +61,7 @@ include_once 'header.php';
                 } else {
                     $time_left_color = 'inherit';
                 }
-                if($plan['status'] == 2){
+                if ($plan['status'] == 2) {
                     $time_left_color = 'green';
                 }
                 $shamsi_month = jdate('F', $plan['execution_time'], '', 'Asia/Kabul', 'fa');

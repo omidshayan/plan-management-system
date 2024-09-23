@@ -7,7 +7,6 @@ include_once 'header.php';
 include_once '../connect.php';
 $id = $_GET['id'];
 
-
 $sql = "SELECT *, 
         (SELECT `name` FROM `users` WHERE users.id = messages.user_id) AS `username`, 
         (SELECT `name` FROM `sections` WHERE sections.id = messages.section_id) AS `sectionName` 
@@ -15,8 +14,8 @@ $sql = "SELECT *,
         WHERE id = ? ";
 $result = $connect->prepare($sql);
 $result->bindValue(1, $id);
-$result->execute(); 
-$userInfos = $result->fetch(PDO::FETCH_OBJ); 
+$result->execute();
+$userInfos = $result->fetch(PDO::FETCH_OBJ);
 ?>
 
 <!-- content -->
@@ -42,9 +41,9 @@ $userInfos = $result->fetch(PDO::FETCH_OBJ);
         <div class="contetn-msg">
             <div class="title-name-msg">گیرنده: </div>
             <?php
-                if($userInfos->user_id){ ?>
+            if ($userInfos->user_id) { ?>
                 <div> <?= $userInfos->username ?> </div>
-            <?php }else{ ?>
+            <?php } else { ?>
                 <div> بخش <?= $userInfos->sectionName ?> </div>
             <?php }
             ?>
