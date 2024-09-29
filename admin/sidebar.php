@@ -38,7 +38,7 @@ $files = $result1->fetchAll(PDO::FETCH_ASSOC);
   </header>
   <div class="appbar-items">
 
-  <div class="notif">
+    <div class="notif">
       <?php
       if (!$rowCountFiles == 0) { ?>
         <div class="notif-number"><?= $rowCountFiles ?></div>
@@ -48,9 +48,9 @@ $files = $result1->fetchAll(PDO::FETCH_ASSOC);
       <div class="notif-show-items">
         <div class="title-notif">آخرین رویدادها</div>
         <?php
-       if (empty($files)) { ?>
+        if (empty($files)) { ?>
           <br>
-          <div class="noNotif">   فایلی وجود ندارد </div>
+          <div class="noNotif"> فایلی وجود ندارد </div>
           <br>
         <?php }
         foreach ($files as $file) { ?>
@@ -183,7 +183,7 @@ $files = $result1->fetchAll(PDO::FETCH_ASSOC);
         <li class="has-submenu">
           <i class="fas fa-sort-down submenu-icon"></i>
           <a href="#">
-          <i class="fas fa-envelope"></i>
+            <i class="fas fa-envelope"></i>
             <span>پیام</span>
           </a>
           <ul class="submenu" style="display: none;">
@@ -196,7 +196,7 @@ $files = $result1->fetchAll(PDO::FETCH_ASSOC);
         <li class="has-submenu">
           <i class="fas fa-sort-down submenu-icon"></i>
           <a href="#">
-          <i class="fas fa-folder-open"></i>
+            <i class="fas fa-folder-open"></i>
             <span>مدیریت فایل ها</span>
           </a>
           <ul class="submenu" style="display: none;">
@@ -218,7 +218,7 @@ $files = $result1->fetchAll(PDO::FETCH_ASSOC);
           </ul>
         </li>
 
-        
+
         <li class="has-submenu">
           <i class="fas fa-sort-down submenu-icon"></i>
           <a href="#">

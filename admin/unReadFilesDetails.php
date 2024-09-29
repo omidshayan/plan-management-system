@@ -11,7 +11,6 @@ $statusUpdate = "UPDATE `documents` SET `status` = '2' WHERE id = $fileId ";
 $exe = $connect->prepare($statusUpdate);
 $exe->execute();
 
-
 $sql = "SELECT *, 
         (SELECT `name` FROM `users` WHERE users.id = documents.user_id_sender) AS `username`
         FROM `documents` 
@@ -50,7 +49,9 @@ $userInfos = $result->fetch(PDO::FETCH_OBJ);
             <div class="title-name-msg"> تاریخ ارسال: </div>
             <div> <?= jdate('Y/m/d', strtotime($userInfos->created_at)) ?> </div>
         </div>
-        <a href="<?=CURRENT_DOMAIN.$userInfos->url?>" target="_blank" class="color"><div class="download">دانلود فایل</div></a>
+        <a href="<?= CURRENT_DOMAIN . $userInfos->url ?>" target="_blank" class="color">
+            <div class="download">دانلود فایل</div>
+        </a>
 
         <a href="unReadFiles.php" class="color btn p5 d-block">برگشت</a>
 
@@ -58,7 +59,4 @@ $userInfos = $result->fetch(PDO::FETCH_OBJ);
 </div>
 <!-- end content -->
 
-
-<?php
-include_once 'footer.php';
-?>
+<?php include_once 'footer.php'; ?>

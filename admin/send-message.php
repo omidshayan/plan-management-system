@@ -13,7 +13,6 @@ $result = $connect->query($sql);
 $users = $result->fetchAll(PDO::FETCH_ASSOC);
 include_once 'header.php';
 ?>
-
 <!-- content -->
 <div class="title">
     <div class="title-text">ارسال پیام جدید</div>
