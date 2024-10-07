@@ -15,7 +15,6 @@ if (empty($name) || empty($content)) {
     
     $date= intval(substr($date, 0, -3));
 
-
 // insert query
 $sql = "INSERT INTO `activity` (`id`, `name`,`content`, `user_id`, `date`, `created_at`) VALUES (NULL, ?, ?, ?, ?, ?)";
 $result = $connect->prepare($sql);

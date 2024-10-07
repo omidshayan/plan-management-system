@@ -11,6 +11,6 @@
   <script src="../assets/js/sweetAlert.js"></script>
   <link href="../lib/timePicker/persian-datepicker.min.css" rel="stylesheet" />
 
-  <title>غالب</title>
+   <title>غالب</title>
 </head>
 <body>

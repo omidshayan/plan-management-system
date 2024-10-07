@@ -14,7 +14,6 @@ if (empty($name) || empty($content)) {
         exit;
     }
     
-
 // insert query
 $sql = "UPDATE `activity` SET `name` = ?, `content` = ?, `date` = ? WHERE id = ?";
 $result = $connect->prepare($sql);
