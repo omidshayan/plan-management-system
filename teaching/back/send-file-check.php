@@ -20,7 +20,6 @@ if (empty($content) || empty($title) || empty($user_id)) {
     exit;
 }
 
-
 // Change img name
 if ($_FILES['image']['size'] > 0) {
     $extension = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);

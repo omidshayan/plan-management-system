@@ -14,15 +14,10 @@ $result->bindValue(1, $_GET['id']);
 $result->execute();
 $planInfo = $result->fetch(PDO::FETCH_OBJ);
 
-
 $date = explode(' ', $planInfo->created_at);
-
 $current_time = time();
-
 $stored_time = $planInfo->date;
-
 $time_diff = $stored_time - $current_time;
-
 $days_left = round($time_diff / (60 * 60 * 24));
 
 if ($days_left < 0) {
